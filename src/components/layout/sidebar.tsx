@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link";
 import { Fragment, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import {
@@ -11,9 +12,14 @@ import {
 } from "@heroicons/react/24/outline";
 
 const navigation = [
-  { name: "Dashboard", href: "#", icon: HomeIcon, current: true },
-  { name: "Team", href: "#", icon: UsersIcon, current: false },
-  { name: "Projects", href: "#", icon: FolderIcon, current: false },
+  { name: "Plan", href: "/plan", icon: HomeIcon, current: true },
+  { name: "Accounts", href: "/accounts", icon: UsersIcon, current: false },
+  {
+    name: "Transactions",
+    href: "/transactions",
+    icon: FolderIcon,
+    current: false,
+  },
 ];
 
 function classNames(...classes: any) {
@@ -151,7 +157,7 @@ export default function Sidebar({ children }: Props) {
                   <ul role="list" className="-mx-2 space-y-1">
                     {navigation.map((item) => (
                       <li key={item.name}>
-                        <a
+                        <Link
                           href={item.href}
                           className={classNames(
                             item.current
@@ -170,7 +176,7 @@ export default function Sidebar({ children }: Props) {
                             aria-hidden="true"
                           />
                           {item.name}
-                        </a>
+                        </Link>
                       </li>
                     ))}
                   </ul>
