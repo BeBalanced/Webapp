@@ -1,7 +1,9 @@
+import Sidebar from "@/components/layout/sidebar";
 
 export default function Primary() {
   return (
-    <main>
-    </main>
-  )
+    <Sidebar>
+      <h1>Welcome to Balance</h1>
+    </Sidebar>
+  );
 }
