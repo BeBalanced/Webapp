@@ -15,7 +15,7 @@ export const metadata: Metadata = {
   description: "Next Supabase Starter by Chase",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
