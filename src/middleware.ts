@@ -2,6 +2,9 @@ import { NextResponse, type NextRequest } from "next/server";
 import { createMiddlewareClient } from "./lib/supabase/auth-helpers";
 
 export async function middleware(request: NextRequest) {
+  if (request.nextUrl.pathname === "/") {
+    return NextResponse.redirect(new URL("/plan", request.url));
+  }
   const { supabase, response } = createMiddlewareClient(request);
 
   // Refresh session if expired - required for Server Components

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import Sidebar from "@/components/layout/sidebar";
+import TopButtonProvider from "@/lib/topButtonContext";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -15,7 +16,7 @@ export const metadata: Metadata = {
   description: "Next Supabase Starter by Chase",
 };
 
-export default async function RootLayout({
+export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
@@ -23,7 +24,9 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <Sidebar>{children}</Sidebar>
+        <TopButtonProvider>
+          <Sidebar>{children}</Sidebar>
+        </TopButtonProvider>
       </body>
     </html>
   );
