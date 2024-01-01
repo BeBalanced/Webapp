@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import { Fragment, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import {
   Bars3Icon,
@@ -32,7 +32,20 @@ interface Props {
 
 export default function Sidebar({ children }: Props) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [navOptions, setNavOptions] = useState(navigationOptions);
+
+  const selectNavOption = (targetPath: string) => {
+    const updatedOptions = navOptions.map((navOption) => ({
+      ...navOption,
+      current: targetPath === navOption.href,
+    }));
+    setNavOptions(updatedOptions);
+  };
+
   const pathname = usePathname();
+  useEffect(() => {
+    selectNavOption(pathname);
+  }, [pathname]);
 
   if (config.routesWithoutNavbar.includes(pathname)) {
     return <>{children}</>;
@@ -104,23 +117,22 @@ export default function Sidebar({ children }: Props) {
                         >
                           <li>
                             <ul role="list" className="-mx-2 space-y-1">
-                              {navigationOptions.map((item) => (
+                              {navOptions.map((item, index) => (
                                 <li key={item.name}>
                                   <Link
                                     href={item.href}
-                                    // onClick={setSelectedNavOption(navigation)}
                                     className={cn(
                                       item.current
-                                        ? "bg-gray-50 text-indigo-600"
-                                        : "text-gray-700 hover:text-indigo-600 hover:bg-gray-50",
+                                        ? "bg-black text-white"
+                                        : "text-black hover:bg-gray-50",
                                       "group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold"
                                     )}
                                   >
                                     <item.icon
                                       className={cn(
                                         item.current
-                                          ? "text-indigo-600"
-                                          : "text-gray-400 group-hover:text-indigo-600",
+                                          ? "text-white"
+                                          : "text-black",
                                         "h-6 w-6 shrink-0"
                                       )}
                                       aria-hidden="true"
@@ -134,10 +146,10 @@ export default function Sidebar({ children }: Props) {
                           <li className="mt-auto">
                             <a
                               href="#"
-                              className="group -mx-2 flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-gray-700 hover:bg-gray-50 hover:text-indigo-600"
+                              className="-mx-2 flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-black hover:bg-gray-50"
                             >
                               <Cog6ToothIcon
-                                className="h-6 w-6 shrink-0 text-gray-400 group-hover:text-indigo-600"
+                                className="h-6 w-6 shrink-0 text-black"
                                 aria-hidden="true"
                               />
                               Settings
@@ -163,22 +175,20 @@ export default function Sidebar({ children }: Props) {
                 <ul role="list" className="flex flex-1 flex-col gap-y-7">
                   <li>
                     <ul role="list" className="-mx-2 space-y-1">
-                      {navigationOptions.map((item) => (
+                      {navOptions.map((item) => (
                         <li key={item.name}>
                           <Link
                             href={item.href}
                             className={cn(
                               item.current
-                                ? "bg-gray-50 text-indigo-600"
-                                : "text-gray-700 hover:text-indigo-600 hover:bg-gray-50",
+                                ? "bg-black text-white"
+                                : "text-black hover:bg-gray-50",
                               "group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold"
                             )}
                           >
                             <item.icon
                               className={cn(
-                                item.current
-                                  ? "text-indigo-600"
-                                  : "text-gray-400 group-hover:text-indigo-600",
+                                item.current ? "text-white" : "text-black",
                                 "h-6 w-6 shrink-0"
                               )}
                               aria-hidden="true"
@@ -192,10 +202,10 @@ export default function Sidebar({ children }: Props) {
                   <li className="mt-auto">
                     <a
                       href="#"
-                      className="group -mx-2 flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-gray-700 hover:bg-gray-50 hover:text-indigo-600"
+                      className="-mx-2 flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-black hover:bg-gray-50"
                     >
                       <Cog6ToothIcon
-                        className="h-6 w-6 shrink-0 text-gray-400 group-hover:text-indigo-600"
+                        className="h-6 w-6 shrink-0 text-black"
                         aria-hidden="true"
                       />
                       Settings
