@@ -17,6 +17,7 @@ import config from "@/../balance.config.json";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { Button } from "../ui/button";
+import { TopButton } from "@/lib/topButtonContext";
 
 const navigationOptions = [
   { name: "Plan", href: "/plan", icon: HomeIcon, current: true },
@@ -36,7 +37,7 @@ interface Props {
 export default function Sidebar({ children }: Props) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [navOptions, setNavOptions] = useState(navigationOptions);
-  const [topButtonState, setTopButtonState] = useContext(TopButtonContext);
+  const [topButtons, setTopButtons] = useContext(TopButtonContext);
 
   const selectNavOption = (targetPath: string) => {
     const updatedOptions = navOptions.map((navOption) => ({
@@ -231,8 +232,9 @@ export default function Sidebar({ children }: Props) {
                 <Bars3Icon className="h-6 w-6" aria-hidden="true" />
               </button>
               <div className="flex flex-row gap-6 absolute right-5">
-                <Button>Add Account</Button>
-                <Button>Remove Account</Button>
+                {topButtons.map((button: TopButton) => {
+                  return <Button>{button.name}</Button>;
+                })}
               </div>
               {/* Separator */}
               <div
