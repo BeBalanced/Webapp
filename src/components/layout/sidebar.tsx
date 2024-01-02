@@ -49,7 +49,8 @@ export default function Sidebar({ children }: Props) {
       setNavOptions(updatedOptions);
     };
     selectNavOption(pathname);
-  }, [pathname]);
+    // navOptions needs to be here?
+  }, [pathname, navOptions]);
 
   if (config.routesWithoutNavbar.includes(pathname)) {
     return <>{children}</>;
