@@ -39,16 +39,15 @@ export default function Sidebar({ children }: Props) {
   const [navOptions, setNavOptions] = useState(navigationOptions);
   const [topButtons, setTopButtons] = useContext(TopButtonContext);
 
-  const selectNavOption = (targetPath: string) => {
-    const updatedOptions = navOptions.map((navOption) => ({
-      ...navOption,
-      current: targetPath === navOption.href,
-    }));
-    setNavOptions(updatedOptions);
-  };
-
   const pathname = usePathname();
   useEffect(() => {
+    const selectNavOption = (targetPath: string) => {
+      const updatedOptions = navOptions.map((navOption) => ({
+        ...navOption,
+        current: targetPath === navOption.href,
+      }));
+      setNavOptions(updatedOptions);
+    };
     selectNavOption(pathname);
   }, [pathname]);
 
@@ -233,7 +232,7 @@ export default function Sidebar({ children }: Props) {
               </button>
               <div className="flex flex-row gap-6 absolute right-5">
                 {topButtons.map((button: TopButton) => {
-                  return <Button>{button.name}</Button>;
+                  return <Button key={button.name}>{button.name}</Button>;
                 })}
               </div>
               {/* Separator */}
