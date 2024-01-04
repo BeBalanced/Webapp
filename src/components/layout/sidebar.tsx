@@ -20,13 +20,12 @@ import { Button } from "../ui/button";
 import { TopButton } from "@/lib/topButtonContext";
 
 const navigationOptions = [
-  { name: "Plan", href: "/plan", icon: HomeIcon, current: true },
-  { name: "Accounts", href: "/accounts", icon: UsersIcon, current: false },
+  { name: "Plan", href: "/plan", icon: HomeIcon },
+  { name: "Accounts", href: "/accounts", icon: UsersIcon },
   {
     name: "Transactions",
     href: "/transactions",
     icon: FolderIcon,
-    current: false,
   },
 ];
 
@@ -36,21 +35,12 @@ interface Props {
 
 export default function Sidebar({ children }: Props) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [navOptions, setNavOptions] = useState(navigationOptions);
   const [topButtons, setTopButtons] = useContext(TopButtonContext);
 
   const pathname = usePathname();
-  useEffect(() => {
-    const selectNavOption = (targetPath: string) => {
-      const updatedOptions = navOptions.map((navOption) => ({
-        ...navOption,
-        current: targetPath === navOption.href,
-      }));
-      setNavOptions(updatedOptions);
-    };
-    selectNavOption(pathname);
-    // navOptions needs to be here?
-  }, [pathname, navOptions]);
+  const isActive = (href: string) => {
+    return pathname === href;
+  };
 
   if (config.routesWithoutNavbar.includes(pathname)) {
     return <>{children}</>;
@@ -122,12 +112,12 @@ export default function Sidebar({ children }: Props) {
                         >
                           <li>
                             <ul role="list" className="-mx-2 space-y-1">
-                              {navOptions.map((item, index) => (
+                              {navigationOptions.map((item, index) => (
                                 <li key={item.name}>
                                   <Link
                                     href={item.href}
                                     className={cn(
-                                      item.current
+                                      isActive(item.href)
                                         ? "bg-black text-white"
                                         : "text-black hover:bg-gray-50",
                                       "group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold"
@@ -135,7 +125,7 @@ export default function Sidebar({ children }: Props) {
                                   >
                                     <item.icon
                                       className={cn(
-                                        item.current
+                                        isActive(item.href)
                                           ? "text-white"
                                           : "text-black",
                                         "h-6 w-6 shrink-0"
@@ -180,12 +170,12 @@ export default function Sidebar({ children }: Props) {
                 <ul role="list" className="flex flex-1 flex-col gap-y-7">
                   <li>
                     <ul role="list" className="-mx-2 space-y-1">
-                      {navOptions.map((item) => (
+                      {navigationOptions.map((item) => (
                         <li key={item.name}>
                           <Link
                             href={item.href}
                             className={cn(
-                              item.current
+                              isActive(item.href)
                                 ? "bg-black text-white"
                                 : "text-black hover:bg-gray-50",
                               "group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold"
@@ -193,7 +183,9 @@ export default function Sidebar({ children }: Props) {
                           >
                             <item.icon
                               className={cn(
-                                item.current ? "text-white" : "text-black",
+                                isActive(item.href)
+                                  ? "text-white"
+                                  : "text-black",
                                 "h-6 w-6 shrink-0"
                               )}
                               aria-hidden="true"
