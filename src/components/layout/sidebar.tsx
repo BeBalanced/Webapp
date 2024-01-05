@@ -35,7 +35,7 @@ interface Props {
 
 export default function Sidebar({ children }: Props) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [topButtons, setTopButtons] = useContext(TopButtonContext);
+  const [topButtons] = useContext(TopButtonContext);
 
   const pathname = usePathname();
   const isActive = (href: string) => {
@@ -225,7 +225,11 @@ export default function Sidebar({ children }: Props) {
               </button>
               <div className="flex flex-row gap-6 absolute right-5">
                 {topButtons.map((button: TopButton) => {
-                  return <Button key={button.name}>{button.name}</Button>;
+                  return (
+                    <Button key={button.name} onClick={button.fn}>
+                      {button.name}
+                    </Button>
+                  );
                 })}
               </div>
               {/* Separator */}
