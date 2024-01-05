@@ -1,23 +1,11 @@
 "use client";
-import { useContext, useEffect } from "react";
-import { TopButtonContext } from "@/lib/topButtonContext";
-import { TopButton } from "@/lib/topButtonContext";
+import { addAccount } from "@/lib/supabase/data-helpers";
+import { Button } from "@/components/ui/button";
 export default function Accounts() {
-  const [topButtons, setTopButtons] = useContext(TopButtonContext);
-  const addAccountButton: TopButton = {
-    name: "Add Account",
-    fn: () => {
-      console.log("add account");
-    },
-  };
-
-  useEffect(() => {
-    setTopButtons([addAccountButton]);
-  }, []);
-
   return (
     <>
       <h1>Welcome to Accounts</h1>
+      <Button onClick={() => addAccount("test", 1002234)}>HEY</Button>
     </>
   );
 }
