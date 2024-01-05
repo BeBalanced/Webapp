@@ -1,5 +1,6 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { createMiddlewareClient } from "./lib/supabase/auth-helpers";
+import { balanceConfig } from "./lib/balance.config";
 
 export async function middleware(request: NextRequest) {
   if (request.nextUrl.pathname === "/") {
@@ -13,8 +14,11 @@ export async function middleware(request: NextRequest) {
     data: { session },
   } = await supabase.auth.getSession();
 
-  if (!session) {
+  if (!session && balanceConfig.protectedRoutes.includes(request.url)) {
     return NextResponse.redirect(new URL("/signin", request.url));
+  }
+  if (session && balanceConfig.noAuthRoutes.includes(request.url)) {
+    return NextResponse.redirect(new URL("/", request.url));
   }
 
   return response;
@@ -29,6 +33,6 @@ export const config = {
      * - favicon.ico (favicon file)
      * Feel free to modify this pattern to include more paths.
      */
-    "/((?!_next/static|_next/image|favicon.ico|signin).*)",
+    "/((?!_next/static|_next/image|favicon.ico).*)",
   ],
 };

@@ -11,7 +11,7 @@ import {
   XMarkIcon,
 } from "@heroicons/react/24/outline";
 
-import config from "@/../balance.config.json";
+import { balanceConfig } from "../../lib/balance.config";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { Button } from "../ui/button";
@@ -38,7 +38,7 @@ export default function Sidebar({ children }: Props) {
     return pathname === href;
   };
 
-  if (config.routesWithoutNavbar.includes(pathname)) {
+  if (balanceConfig.routesWithoutNavbar.includes(pathname)) {
     return <>{children}</>;
   } else {
     return (

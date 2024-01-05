@@ -1,4 +1,0 @@
-{
-  "routesWithoutNavbar": ["/signin", "/signup"],
-  "protectedRoutes": ["/plan", "/accounts", "/transactions"]
-}
