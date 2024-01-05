@@ -14,10 +14,16 @@ export async function middleware(request: NextRequest) {
     data: { session },
   } = await supabase.auth.getSession();
 
-  if (!session && balanceConfig.protectedRoutes.includes(request.url)) {
+  if (
+    !session &&
+    balanceConfig.protectedRoutes.includes(request.nextUrl.pathname)
+  ) {
     return NextResponse.redirect(new URL("/signin", request.url));
   }
-  if (session && balanceConfig.noAuthRoutes.includes(request.url)) {
+  if (
+    session &&
+    balanceConfig.noAuthRoutes.includes(request.nextUrl.pathname)
+  ) {
     return NextResponse.redirect(new URL("/", request.url));
   }
 
