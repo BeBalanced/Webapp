@@ -139,8 +139,8 @@ export default function Sidebar({ children }: Props) {
                             </ul>
                           </li>
                           <li className="mt-auto">
-                            <a
-                              href="#"
+                            <Link
+                              href="/settings"
                               className="-mx-2 flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-black hover:bg-gray-50"
                             >
                               <Cog6ToothIcon
@@ -148,7 +148,7 @@ export default function Sidebar({ children }: Props) {
                                 aria-hidden="true"
                               />
                               Settings
-                            </a>
+                            </Link>
                           </li>
                         </ul>
                       </nav>
@@ -197,8 +197,8 @@ export default function Sidebar({ children }: Props) {
                     </ul>
                   </li>
                   <li className="mt-auto">
-                    <a
-                      href="#"
+                    <Link
+                      href="/settings"
                       className="-mx-2 flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-black hover:bg-gray-50"
                     >
                       <Cog6ToothIcon
@@ -206,7 +206,7 @@ export default function Sidebar({ children }: Props) {
                         aria-hidden="true"
                       />
                       Settings
-                    </a>
+                    </Link>
                   </li>
                 </ul>
               </nav>
