@@ -1,9 +1,13 @@
+"use client";
+import { signOut } from "@/lib/supabase/client";
+import { Button } from "@/components/ui/button";
 export default function Settings() {
   return (
     <>
       <div className="divide-y divide-white/5">
         <div className="grid max-w-7xl grid-cols-1 gap-x-8 gap-y-10 px-4 py-16 sm:px-6 md:grid-cols-3 lg:px-8">
           <div>
+            <Button onClick={signOut}>Sign out</Button>
             <h2 className="text-base font-semibold leading-7 text-black">
               Personal Information
             </h2>
