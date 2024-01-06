@@ -28,7 +28,7 @@ export default function AccountsTable() {
       <TableBody>
         {accounts.map((account) => {
           return (
-            <TableRow className="hover:cursor-pointer">
+            <TableRow key={account.name} className="hover:cursor-pointer">
               <TableCell>{account.name}</TableCell>
               <TableCell>{account.type}</TableCell>
               <TableCell>${account.balance}</TableCell>
