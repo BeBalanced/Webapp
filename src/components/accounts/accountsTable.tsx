@@ -7,9 +7,15 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { fetchAccounts } from "@/lib/supabase/client";
 
 export default function AccountsTable() {
+  useEffect(() => {
+    const accountsTest = fetchAccounts();
+    console.log(accountsTest);
+  });
+
   const account1 = {
     name: "PNC Checking",
     type: "Checking",

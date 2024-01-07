@@ -1,4 +1,4 @@
-import TransactionsTable from "@/components/accounts/transactionsTable";
+import TransactionsTable from "@/components/transactions/transactionsTable";
 export default function AccountDetails() {
   return (
     <>
