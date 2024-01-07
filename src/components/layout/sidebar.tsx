@@ -15,6 +15,7 @@ import { balanceConfig } from "../../lib/balance.config";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import AddAccountButton from "../accounts/addAccountButton";
+import SignOutButton from "../settings/signOutButton";
 
 const navigationOptions = [
   { name: "Plan", href: "/plan", icon: HomeIcon },
@@ -221,6 +222,7 @@ export default function Sidebar({ children }: Props) {
               </button>
               <div className="flex flex-row gap-6 absolute right-5">
                 {isActive("/accounts") && <AddAccountButton />}
+                {isActive("/settings") && <SignOutButton />}
               </div>
               {/* Separator */}
               <div

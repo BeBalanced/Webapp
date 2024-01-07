@@ -1,6 +1,7 @@
 // import { createClient } from "@supabase/supabase-js";
+
 import { createBrowserClient } from "@supabase/ssr";
-import { redirect } from "next/navigation";
+import { navigate } from "./server";
 
 export const supabase = createBrowserClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -11,7 +12,7 @@ export const signOut = async () => {
   // Create a single supabase client for interacting with your database
   const { error } = await supabase.auth.signOut();
   if (!error) {
-    redirect("/signin");
+    navigate("/signin");
   }
 };
 
