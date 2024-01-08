@@ -9,7 +9,6 @@ export const supabase = createBrowserClient(
 );
 
 export const signOut = async () => {
-  // Create a single supabase client for interacting with your database
   const { error } = await supabase.auth.signOut();
   if (!error) {
     navigate("/signin");
