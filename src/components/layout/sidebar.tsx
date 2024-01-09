@@ -5,10 +5,10 @@ import { Dialog, Transition } from "@headlessui/react";
 import {
   Bars3Icon,
   Cog6ToothIcon,
-  FolderIcon,
-  HomeIcon,
-  UsersIcon,
   XMarkIcon,
+  MapIcon,
+  BuildingLibraryIcon,
+  BanknotesIcon,
 } from "@heroicons/react/24/outline";
 
 import { balanceConfig } from "../../lib/balance.config";
@@ -18,12 +18,12 @@ import AddAccountButton from "../accounts/addAccountButton";
 import SignOutButton from "../settings/signOutButton";
 
 const navigationOptions = [
-  { name: "Plan", href: "/plan", icon: HomeIcon },
-  { name: "Accounts", href: "/accounts", icon: UsersIcon },
+  { name: "Plan", href: "/plan", icon: MapIcon },
+  { name: "Accounts", href: "/accounts", icon: BuildingLibraryIcon },
   {
     name: "Transactions",
     href: "/transactions",
-    icon: FolderIcon,
+    icon: BanknotesIcon,
   },
 ];
 

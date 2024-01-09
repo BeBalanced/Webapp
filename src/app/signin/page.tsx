@@ -1,13 +1,7 @@
 import { signIn } from "@/lib/supabase/auth-helpers";
 import { Button } from "@/components/ui/button";
-import Link from "next/link";
-interface Props {
-  searchParams: {
-    message: string;
-  };
-}
 
-export default function SignIn({ searchParams }: Props) {
+export default function SignIn() {
   return (
     <main className="min-h-screen">
       <div className="flex min-h-full flex-1 flex-col justify-center py-12 sm:px-6 lg:px-8">

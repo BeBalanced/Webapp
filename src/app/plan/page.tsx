@@ -1,7 +1,6 @@
 import {
   Card,
   CardContent,
-  CardDescription,
   CardFooter,
   CardHeader,
   CardTitle,
@@ -13,7 +12,7 @@ export default function Plan() {
       <Card>
         <CardHeader className="flex flex-row justify-between items-center">
           <CardTitle className="mt-2">🏠 Mortgage</CardTitle>
-          <p className=" bg-orange-200 rounded-md p-1">$500.00</p>
+          <p className=" bg-orange-200 rounded-md p-1">$250.00</p>
         </CardHeader>
         <CardContent>
           <div className=" bg-gray-200 rounded-md h-2">
@@ -27,31 +26,31 @@ export default function Plan() {
 
       <Card>
         <CardHeader className="flex flex-row justify-between items-center">
-          <CardTitle className="mt-2">🏠 Mortgage</CardTitle>
-          <p className=" bg-orange-200 rounded-md p-1">$500.00</p>
+          <CardTitle className="mt-2">🛒 Groceries</CardTitle>
+          <p className=" bg-green-300 rounded-md p-1">$500.00</p>
         </CardHeader>
         <CardContent>
           <div className=" bg-gray-200 rounded-md h-2">
-            <div className=" bg-green-500 w-3/6 h-2 rounded-md"></div>
+            <div className=" bg-green-400 w-6/6 h-2 rounded-md"></div>
           </div>
         </CardContent>
         <CardFooter>
-          <p className=" text-gray-400 ml-1">$250.00 more needed by the 12th</p>
+          <p className=" text-gray-400 ml-1">Funded</p>
         </CardFooter>
       </Card>
 
       <Card>
         <CardHeader className="flex flex-row justify-between items-center">
-          <CardTitle className="mt-2">🏠 Mortgage</CardTitle>
-          <p className=" bg-orange-200 rounded-md p-1">$500.00</p>
+          <CardTitle className="mt-2">🚗 Car Insurance</CardTitle>
+          <p className=" bg-gray-200 rounded-md p-1">$0.00</p>
         </CardHeader>
         <CardContent>
           <div className=" bg-gray-200 rounded-md h-2">
-            <div className=" bg-green-200 w-3/6 h-2 rounded-md"></div>
+            <div className=" bg-green-200 w-6/6 h-2 rounded-md"></div>
           </div>
         </CardContent>
         <CardFooter>
-          <p className=" text-gray-400 ml-1">$250.00 more needed by the 12th</p>
+          <p className=" text-gray-400 ml-1">Spent</p>
         </CardFooter>
       </Card>
     </div>
