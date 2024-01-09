@@ -14,17 +14,3 @@ export const signOut = async () => {
     navigate("/signin");
   }
 };
-
-export const fetchAccounts = async () => {
-  let { data: accounts, error } = await supabase.from("accounts").select("id");
-  return accounts;
-};
-
-export const addAccount = async () => {
-  const { data, error } = await supabase
-    .from("accounts")
-    .insert([{ name: "someValue", type: "otherValue", balance: 123412 }])
-    .select();
-
-  return data;
-};
