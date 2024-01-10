@@ -1,5 +1,5 @@
 export const balanceConfig = {
-  routesWithoutNavbar: ["/signin"],
+  routesWithoutNavbar: ["/signin", "/welcome"],
   protectedRoutes: ["/plan", "/accounts", "/transactions", "/settings"],
-  noAuthRoutes: ["/signin"],
+  noAuthRoutes: ["/signin", "/welcome"],
 };

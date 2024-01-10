@@ -18,7 +18,7 @@ export async function middleware(request: NextRequest) {
     !session &&
     balanceConfig.protectedRoutes.includes(request.nextUrl.pathname)
   ) {
-    return NextResponse.redirect(new URL("/signin", request.url));
+    return NextResponse.redirect(new URL("/welcome", request.url));
   }
   if (
     session &&
