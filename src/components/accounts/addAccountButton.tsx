@@ -21,6 +21,9 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import { useState } from "react";
+import { toast } from "sonner";
+import { CheckCircleIcon } from "@heroicons/react/24/outline";
 
 const addAccountSchema = z.object({
   name: z.string().min(2).max(50),
@@ -28,6 +31,9 @@ const addAccountSchema = z.object({
 });
 
 export default function AddAccountButton() {
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+
   const form = useForm<z.infer<typeof addAccountSchema>>({
     resolver: zodResolver(addAccountSchema),
     defaultValues: {
@@ -36,14 +42,24 @@ export default function AddAccountButton() {
     },
   });
 
-  function onSubmit(values: z.infer<typeof addAccountSchema>) {
-    addAccount(values);
+  async function onSubmit(values: z.infer<typeof addAccountSchema>) {
+    setIsLoading(true);
+    await addAccount(values);
+    setIsLoading(false);
+    setIsOpen(false);
   }
 
   return (
-    <Dialog>
+    <Dialog open={isOpen}>
       <DialogTrigger asChild>
-        <Button>Add Account</Button>
+        <Button
+          onClick={() => {
+            console.log("opening");
+            setIsOpen(true);
+          }}
+        >
+          Add Account
+        </Button>
       </DialogTrigger>
       <DialogContent className="rounded-md">
         <Form {...form}>
@@ -84,7 +100,9 @@ export default function AddAccountButton() {
               />
             </div>
             <DialogFooter className="pt-4">
-              <Button type="submit">Submit</Button>
+              <Button type="submit" disabled={isLoading}>
+                Submit
+              </Button>
             </DialogFooter>
           </form>
         </Form>

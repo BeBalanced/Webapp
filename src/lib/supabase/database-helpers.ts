@@ -1,4 +1,5 @@
 import { supabase } from "./client";
+import { toast } from "sonner";
 
 interface account {
   name: string;
@@ -15,6 +16,9 @@ export async function addAccount(params: account) {
     .from("accounts")
     .insert([{ name: params.name, balance: 1234, user_id: currentUserId }])
     .select();
-  console.log(data);
-  return { data, error };
+  if (!error) {
+    toast.success("Account added successfully.");
+    return data;
+  }
+  toast.error(error.toString());
 }
