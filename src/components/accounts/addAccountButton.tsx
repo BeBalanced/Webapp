@@ -45,7 +45,7 @@ export default function AddAccountButton() {
       <DialogTrigger asChild>
         <Button>Add Account</Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px]">
+      <DialogContent className="rounded-md">
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)}>
             <DialogHeader className="py-2">
@@ -65,6 +65,7 @@ export default function AddAccountButton() {
                         className="focus:ring-black"
                       />
                     </FormControl>
+                    <FormMessage />
                   </FormItem>
                 )}
               />
@@ -77,6 +78,7 @@ export default function AddAccountButton() {
                     <FormControl>
                       <Input placeholder="0.00" {...field} />
                     </FormControl>
+                    <FormMessage />
                   </FormItem>
                 )}
               />
