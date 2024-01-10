@@ -7,7 +7,8 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { supabase } from "@/lib/supabase/client";
 
 export default function AccountsTable() {
   const account1 = {
@@ -16,6 +17,16 @@ export default function AccountsTable() {
     balance: 12234,
   };
   const [accounts, setAccounts] = useState([account1]);
+
+  const fetchData = async () => {
+    let { data, error } = await supabase.from("accounts").select("*");
+    return data;
+  };
+
+  useEffect(() => {
+    const data = fetchData();
+    console.log(data);
+  }, []);
   return (
     <Table>
       <TableHeader>
