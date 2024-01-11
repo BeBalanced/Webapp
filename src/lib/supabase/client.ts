@@ -10,6 +10,6 @@ type NextRouter = any;
 export const signOut = async (router: NextRouter) => {
   const { error } = await supabase.auth.signOut();
   if (!error) {
-    router.refresh();
+    router.push("/welcome");
   }
 };

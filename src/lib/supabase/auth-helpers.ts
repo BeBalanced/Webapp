@@ -123,7 +123,7 @@ export const signIn = async (formData: FormData) => {
     return redirect("/signin?message=Could not authenticate user");
   }
 
-  return redirect("/");
+  return redirect("/plan");
 };
 
 export const signUp = async (formData: FormData) => {
