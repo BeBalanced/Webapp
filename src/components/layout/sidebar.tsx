@@ -16,6 +16,8 @@ import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import AddAccountButton from "../accounts/addAccountButton";
 import SignOutButton from "../settings/signOutButton";
+import AddPlanButton from "../plan/addPlanButton";
+import ChangeMonth from "../plan/changeMonth";
 
 const navigationOptions = [
   { name: "Plan", href: "/plan", icon: MapIcon },
@@ -220,15 +222,16 @@ export default function Sidebar({ children }: Props) {
                 <span className="sr-only">Open sidebar</span>
                 <Bars3Icon className="h-6 w-6" aria-hidden="true" />
               </button>
+
+              <div className="flex flex-row gap-6 absolute left-16">
+                {isActive("/plan") && <ChangeMonth />}
+              </div>
+
               <div className="flex flex-row gap-6 absolute right-5">
                 {isActive("/accounts") && <AddAccountButton />}
                 {isActive("/settings") && <SignOutButton />}
+                {isActive("/plan") && <AddPlanButton />}
               </div>
-              {/* Separator */}
-              <div
-                className="h-6 w-px bg-gray-200 lg:hidden"
-                aria-hidden="true"
-              />
             </div>
 
             <main className="py-10">
