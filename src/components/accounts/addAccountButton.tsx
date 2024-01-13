@@ -21,7 +21,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 const addAccountSchema = z.object({
@@ -32,6 +32,27 @@ const addAccountSchema = z.object({
 export default function AddAccountButton() {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isOpen, setIsOpen] = useState<boolean>(false);
+
+  useEffect(() => {
+    const handleOutsideClick = (event: MouseEvent) => {
+      // Check if the click is outside the dialog content
+      if (
+        isOpen &&
+        event.target instanceof Element &&
+        !event.target.closest(".tabs-class")
+      ) {
+        setIsOpen(false);
+      }
+    };
+
+    // Add event listener to handle outside click
+    document.addEventListener("click", handleOutsideClick);
+
+    // Clean up the event listener on component unmount
+    return () => {
+      document.removeEventListener("click", handleOutsideClick);
+    };
+  }, [isOpen]);
 
   const form = useForm<z.infer<typeof addAccountSchema>>({
     resolver: zodResolver(addAccountSchema),
@@ -60,8 +81,8 @@ export default function AddAccountButton() {
           Add Account
         </Button>
       </DialogTrigger>
-      <DialogContent className="rounded-md">
-        <Tabs>
+      <DialogContent className="rounded-md h-80">
+        <Tabs className="tabs-class">
           <TabsList className="grid w-full grid-cols-2">
             <TabsTrigger value="unlinked">Unlinked</TabsTrigger>
             <TabsTrigger value="linked">Linked</TabsTrigger>
@@ -81,7 +102,7 @@ export default function AddAccountButton() {
                         <FormLabel>Name</FormLabel>
                         <FormControl>
                           <Input
-                            placeholder="new account"
+                            placeholder="account name"
                             {...field}
                             className="focus:ring-black"
                           />

@@ -1,6 +1,5 @@
 import { supabase } from "./client";
 import { toast } from "sonner";
-import { redirect } from "next/navigation";
 
 interface account {
   name: string;
