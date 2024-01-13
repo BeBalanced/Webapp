@@ -40,7 +40,10 @@ export default function Welcome() {
           <div className="hidden sm:mb-8 sm:flex sm:justify-center">
             <div className="relative rounded-full px-3 py-1 text-sm leading-6 text-gray-600 ring-1 ring-gray-900/10 hover:ring-gray-900/20">
               Private beta opens on January 18th{" "}
-              <Link href="#" className="font-semibold text-black">
+              <Link
+                href="/welcome/join-waitlist"
+                className="font-semibold text-black"
+              >
                 <span className="absolute inset-0" aria-hidden="true" />
                 Get on the waitlist <span aria-hidden="true">&rarr;</span>
               </Link>

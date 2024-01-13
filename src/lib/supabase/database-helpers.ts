@@ -1,5 +1,6 @@
 import { supabase } from "./client";
 import { toast } from "sonner";
+import { redirect } from "next/navigation";
 
 interface account {
   name: string;
@@ -20,5 +21,18 @@ export async function addAccount(params: account) {
     toast.success("Account added successfully.");
     return data;
   }
-  toast.error(error.toString());
+  toast.error("Sorry, something went wrong.");
+}
+
+export async function joinWaitlist(userEmail: string) {
+  const { data, error } = await supabase
+    .from("waitlist")
+    .insert({ email: userEmail });
+  if (!error) {
+    toast.success(
+      "Congrats, you're all signed up. You will get an email when a spot opens up."
+    );
+    return data;
+  }
+  toast.error("Sorry, something went wrong.");
 }

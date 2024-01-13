@@ -22,8 +22,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { useState } from "react";
-import { toast } from "sonner";
-import { CheckCircleIcon } from "@heroicons/react/24/outline";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 const addAccountSchema = z.object({
   name: z.string().min(2).max(50),
@@ -62,50 +61,61 @@ export default function AddAccountButton() {
         </Button>
       </DialogTrigger>
       <DialogContent className="rounded-md">
-        <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)}>
-            <DialogHeader className="py-2">
-              <DialogTitle>Add Account</DialogTitle>
-            </DialogHeader>
-            <div className="space-y-4">
-              <FormField
-                control={form.control}
-                name="name"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Name</FormLabel>
-                    <FormControl>
-                      <Input
-                        placeholder="new account"
-                        {...field}
-                        className="focus:ring-black"
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="balance"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Balance</FormLabel>
-                    <FormControl>
-                      <Input placeholder="0.00" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            </div>
-            <DialogFooter className="pt-4">
-              <Button type="submit" disabled={isLoading}>
-                Submit
-              </Button>
-            </DialogFooter>
-          </form>
-        </Form>
+        <Tabs>
+          <TabsList className="grid w-full grid-cols-2">
+            <TabsTrigger value="unlinked">Unlinked</TabsTrigger>
+            <TabsTrigger value="linked">Linked</TabsTrigger>
+          </TabsList>
+          <TabsContent value="unlinked">
+            <Form {...form}>
+              <form onSubmit={form.handleSubmit(onSubmit)}>
+                <DialogHeader className="py-2">
+                  <DialogTitle>Add Account</DialogTitle>
+                </DialogHeader>
+                <div className="space-y-4">
+                  <FormField
+                    control={form.control}
+                    name="name"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Name</FormLabel>
+                        <FormControl>
+                          <Input
+                            placeholder="new account"
+                            {...field}
+                            className="focus:ring-black"
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="balance"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Balance</FormLabel>
+                        <FormControl>
+                          <Input placeholder="0.00" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </div>
+                <DialogFooter className="pt-4">
+                  <Button type="submit" disabled={isLoading}>
+                    Submit
+                  </Button>
+                </DialogFooter>
+              </form>
+            </Form>
+          </TabsContent>
+          <TabsContent value="linked">
+            This is a linked account creator
+          </TabsContent>
+        </Tabs>
       </DialogContent>
     </Dialog>
   );
