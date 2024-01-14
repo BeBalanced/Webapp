@@ -23,6 +23,14 @@ import {
 } from "@/components/ui/form";
 import { useState, useEffect } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+// import { usePlaidLink } from "react-plaid-link";
+
+// const { open, ready } = usePlaidLink(config);
+
+// const config: Parameters<typeof usePlaidLink>[0] = {
+//     token: linkToken!,
+//     onSuccess,
+// };
 
 const addAccountSchema = z.object({
   name: z.string().min(2).max(50),
