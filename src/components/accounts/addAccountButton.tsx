@@ -1,5 +1,5 @@
 "use client";
-import { addAccount } from "@/lib/supabase/database-helpers";
+import { addAccount } from "@/lib/supabase/helpers";
 import {
   Dialog,
   DialogContent,
@@ -24,13 +24,7 @@ import {
 import { useState, useEffect } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 // import { usePlaidLink } from "react-plaid-link";
-
-// const { open, ready } = usePlaidLink(config);
-
-// const config: Parameters<typeof usePlaidLink>[0] = {
-//     token: linkToken!,
-//     onSuccess,
-// };
+// import { generateLinkToken } from "@/lib/plaid/client-helpers";
 
 const addAccountSchema = z.object({
   name: z.string().min(2).max(50),
@@ -76,6 +70,17 @@ export default function AddAccountButton() {
     setIsLoading(false);
     setIsOpen(false);
   }
+
+  // async function plaidCreateAccount() {
+  //   const linkToken = await generateLinkToken("1");
+  // const { open, ready } = usePlaidLink({
+  //   token: linkToken!,
+  //   onSuccess: (public_token, metadata) => {
+  //     // send public_token to server
+  //   },
+  // });
+
+  // }
 
   return (
     <Dialog open={isOpen}>
@@ -134,15 +139,20 @@ export default function AddAccountButton() {
                   />
                 </div>
                 <DialogFooter className="pt-4">
-                  <Button type="submit" disabled={isLoading}>
-                    Submit
+                  <Button type="submit" disabled={isLoading} className="w-full">
+                    Add Unlinked Account
                   </Button>
                 </DialogFooter>
               </form>
             </Form>
           </TabsContent>
-          <TabsContent value="linked">
-            This is a linked account creator
+          <TabsContent
+            value="linked"
+            className="flex flex-col justify-between h-60"
+          >
+            Creating a Linked account means linking your bank or financial
+            institution so transactions do not need to be logged manually.
+            <Button className="w-full">Add Linked Account</Button>
           </TabsContent>
         </Tabs>
       </DialogContent>

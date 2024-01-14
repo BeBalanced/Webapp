@@ -1,4 +1,4 @@
-export async function generateToken(id: string) {
+export async function generateLinkToken(id: string) {
   const response = await fetch("/api/plaid/create_link_token", {
     method: "POST",
     headers: {

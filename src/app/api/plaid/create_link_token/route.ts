@@ -13,13 +13,12 @@ const PLAID_COUNTRY_CODES = (process.env.PLAID_COUNTRY_CODES || "US").split(
 const PLAID_REDIRECT_URI = process.env.PLAID_REDIRECT_URI || "";
 
 export async function POST(request: NextRequest) {
-  console.log("hey");
   const configs: any = {
     user: {
       // This should correspond to a unique id for the current user.
       client_user_id: "user-id",
     },
-    client_name: "Balance User",
+    client_name: "Balance",
     products: PLAID_PRODUCTS,
     country_codes: PLAID_COUNTRY_CODES,
     language: "en",
