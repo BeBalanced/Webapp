@@ -4,6 +4,7 @@ import { toast } from "sonner";
 interface account {
   name: string;
   balance: string;
+  countTowardAssign: boolean;
 }
 
 export async function getUserId() {
@@ -12,15 +13,24 @@ export async function getUserId() {
 
 export async function addAccount(params: account) {
   const currentUserId = await getUserId();
+
   const { data, error } = await supabase
     .from("accounts")
-    .insert([{ name: params.name, balance: 1234, user_id: currentUserId }])
+    .insert([
+      {
+        name: params.name,
+        balance: parseInt(params.balance),
+        user_id: currentUserId,
+        count_toward_assign: params.countTowardAssign,
+      },
+    ])
     .select();
   if (!error) {
     toast.success("Account added successfully.");
     return data;
   }
   toast.error("Sorry, something went wrong.");
+  console.log(error);
 }
 
 export async function joinWaitlist(userEmail: string) {
