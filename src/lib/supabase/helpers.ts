@@ -34,24 +34,6 @@ export async function addAccount(params: accountToAdd) {
   console.log(error);
 }
 
-export async function retrieveAccounts() {
-  const { data, error } = await supabase.from("accounts").select();
-  console.log(data);
-  if (!error && data) {
-    return data.map((pgAccount) => {
-      let tempAccount: Account = {
-        id: pgAccount.id,
-        name: pgAccount.name,
-        balance: pgAccount.balance,
-        countTowardsAssign: pgAccount.count_towards_assign,
-      };
-      return tempAccount;
-    });
-  }
-  console.log(error);
-  toast.error("Sorry, something went wrong.");
-}
-
 export async function joinWaitlist(userEmail: string) {
   const { data, error } = await supabase
     .from("waitlist")

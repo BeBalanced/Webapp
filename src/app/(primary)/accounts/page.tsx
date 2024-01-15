@@ -6,7 +6,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { formatCentsToDollars } from "@/lib/money/helpers";
-import { retrieveAccounts } from "@/lib/supabase/helpers";
+import { retrieveAccounts } from "@/lib/supabase/server";
 import { Account } from "@/lib/supabase/schemas";
 
 export default async function Accounts() {
