@@ -1,4 +1,4 @@
-import { signIn } from "@/lib/supabase/auth-helpers";
+import { signIn } from "@/lib/supabase/config";
 import { Button } from "@/components/ui/button";
 
 export default function SignIn() {

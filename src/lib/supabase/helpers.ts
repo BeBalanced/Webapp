@@ -1,26 +1,44 @@
 import { supabase } from "./client";
 import { toast } from "sonner";
-import { redirect } from "next/navigation";
 
 interface account {
   name: string;
   balance: string;
+  countTowardsAssign: boolean;
 }
 
-async function getUserId() {
-  return (await supabase.auth.getSession()).data.session?.user.id;
+export async function getUserId() {
+  return (await supabase.auth.getUser()).data.user?.id;
 }
 
 export async function addAccount(params: account) {
   const currentUserId = await getUserId();
+
   const { data, error } = await supabase
     .from("accounts")
-    .insert([{ name: params.name, balance: 1234, user_id: currentUserId }])
+    .insert([
+      {
+        name: params.name,
+        balance: parseInt(params.balance),
+        user_id: currentUserId,
+        count_towards_assign: params.countTowardsAssign,
+      },
+    ])
     .select();
   if (!error) {
     toast.success("Account added successfully.");
     return data;
   }
+  toast.error("Sorry, something went wrong.");
+  console.log(error);
+}
+
+export async function retrieveAccounts() {
+  const { data, error } = await supabase.from("accounts").select();
+  if (!error) {
+    return data;
+  }
+  console.log(error);
   toast.error("Sorry, something went wrong.");
 }
 

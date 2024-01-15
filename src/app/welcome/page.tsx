@@ -37,7 +37,7 @@ export default function Welcome() {
           />
         </div>
         <div className="mx-auto max-w-2xl py-12">
-          <div className="hidden sm:mb-8 sm:flex sm:justify-center">
+          <div className="mb-8 flex justify-center">
             <div className="relative rounded-full px-3 py-1 text-sm leading-6 text-gray-600 ring-1 ring-gray-900/10 hover:ring-gray-900/20">
               Private beta opens on January 18th{" "}
               <Link

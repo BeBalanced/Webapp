@@ -1,5 +1,5 @@
 "use client";
-import { addAccount } from "@/lib/supabase/database-helpers";
+import { addAccount } from "@/lib/supabase/helpers";
 import {
   Dialog,
   DialogContent,
@@ -23,21 +23,46 @@ import {
 } from "@/components/ui/form";
 import { useState } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Checkbox } from "@/components/ui/checkbox";
+// import LinkedModalTabContent from "./linkedModalTabContent";
 
 const addAccountSchema = z.object({
   name: z.string().min(2).max(50),
   balance: z.string().min(0),
+  countTowardsAssign: z.boolean().default(false),
 });
 
 export default function AddAccountButton() {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
+  // useEffect(() => {
+  //   const handleOutsideClick = (event: MouseEvent) => {
+  // Check if the click is outside the dialog content
+  // if (
+  //   isOpen &&
+  //   event.target instanceof Element &&
+  //   !event.target.closest(".tabs-class")
+  // ) {
+  //   setIsOpen(false);
+  // }
+  //   };
+
+  //   // Add event listener to handle outside click
+  //   document.addEventListener("click", handleOutsideClick);
+
+  //   // Clean up the event listener on component unmount
+  //   return () => {
+  //     document.removeEventListener("click", handleOutsideClick);
+  //   };
+  // }, [isOpen]);
+
   const form = useForm<z.infer<typeof addAccountSchema>>({
     resolver: zodResolver(addAccountSchema),
     defaultValues: {
       name: "",
-      balance: "0.00",
+      balance: "",
+      countTowardsAssign: false,
     },
   });
 
@@ -53,7 +78,6 @@ export default function AddAccountButton() {
       <DialogTrigger asChild>
         <Button
           onClick={() => {
-            console.log("opening");
             setIsOpen(true);
           }}
         >
@@ -61,7 +85,7 @@ export default function AddAccountButton() {
         </Button>
       </DialogTrigger>
       <DialogContent className="rounded-md">
-        <Tabs>
+        <Tabs className="tabs-class">
           <TabsList className="grid w-full grid-cols-2">
             <TabsTrigger value="unlinked">Unlinked</TabsTrigger>
             <TabsTrigger value="linked">Linked</TabsTrigger>
@@ -70,7 +94,7 @@ export default function AddAccountButton() {
             <Form {...form}>
               <form onSubmit={form.handleSubmit(onSubmit)}>
                 <DialogHeader className="py-2">
-                  <DialogTitle>Add Account</DialogTitle>
+                  <DialogTitle>Add Unlinked Account</DialogTitle>
                 </DialogHeader>
                 <div className="space-y-4">
                   <FormField
@@ -81,7 +105,7 @@ export default function AddAccountButton() {
                         <FormLabel>Name</FormLabel>
                         <FormControl>
                           <Input
-                            placeholder="new account"
+                            placeholder="account name"
                             {...field}
                             className="focus:ring-black"
                           />
@@ -90,6 +114,7 @@ export default function AddAccountButton() {
                       </FormItem>
                     )}
                   />
+
                   <FormField
                     control={form.control}
                     name="balance"
@@ -103,17 +128,37 @@ export default function AddAccountButton() {
                       </FormItem>
                     )}
                   />
+
+                  <FormField
+                    control={form.control}
+                    name="countTowardsAssign"
+                    render={({ field }) => (
+                      <FormItem className="py-2">
+                        <span className="flex gap-2 items-center">
+                          <FormControl>
+                            <Checkbox
+                              checked={field.value}
+                              onCheckedChange={field.onChange}
+                            />
+                          </FormControl>
+                          <FormLabel>Count Toward Assign?</FormLabel>
+                        </span>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
                 </div>
                 <DialogFooter className="pt-4">
-                  <Button type="submit" disabled={isLoading}>
-                    Submit
+                  <Button type="submit" disabled={isLoading} className="w-full">
+                    Add Unlinked Account
                   </Button>
                 </DialogFooter>
               </form>
             </Form>
           </TabsContent>
-          <TabsContent value="linked">
-            This is a linked account creator
+          <TabsContent value="linked" className="flex flex-col justify-between">
+            Unfinished
+            {/* <LinkedModalTabContent /> */}
           </TabsContent>
         </Tabs>
       </DialogContent>

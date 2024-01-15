@@ -1,5 +1,5 @@
 import { NextResponse, type NextRequest } from "next/server";
-import { createMiddlewareClient } from "./lib/supabase/auth-helpers";
+import { createMiddlewareClient } from "./lib/supabase/config";
 import { balanceConfig } from "./lib/balance.config";
 
 export async function middleware(request: NextRequest) {
