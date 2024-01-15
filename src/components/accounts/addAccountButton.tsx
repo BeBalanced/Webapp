@@ -23,8 +23,7 @@ import {
 } from "@/components/ui/form";
 import { useState, useEffect } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-// import { usePlaidLink } from "react-plaid-link";
-// import { generateLinkToken } from "@/lib/plaid/client-helpers";
+import LinkedModalTabContent from "./linkedModalTabContent";
 
 const addAccountSchema = z.object({
   name: z.string().min(2).max(50),
@@ -70,17 +69,6 @@ export default function AddAccountButton() {
     setIsLoading(false);
     setIsOpen(false);
   }
-
-  // async function plaidCreateAccount() {
-  //   const linkToken = await generateLinkToken("1");
-  // const { open, ready } = usePlaidLink({
-  //   token: linkToken!,
-  //   onSuccess: (public_token, metadata) => {
-  //     // send public_token to server
-  //   },
-  // });
-
-  // }
 
   return (
     <Dialog open={isOpen}>
@@ -150,9 +138,7 @@ export default function AddAccountButton() {
             value="linked"
             className="flex flex-col justify-between h-60"
           >
-            Creating a Linked account means linking your bank or financial
-            institution so transactions do not need to be logged manually.
-            <Button className="w-full">Add Linked Account</Button>
+            <LinkedModalTabContent />
           </TabsContent>
         </Tabs>
       </DialogContent>

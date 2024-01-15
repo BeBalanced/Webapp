@@ -6,8 +6,8 @@ interface account {
   balance: string;
 }
 
-async function getUserId() {
-  return (await supabase.auth.getSession()).data.session?.user.id;
+export async function getUserId() {
+  return (await supabase.auth.getUser()).data.user?.id;
 }
 
 export async function addAccount(params: account) {

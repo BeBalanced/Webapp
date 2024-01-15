@@ -1,4 +1,3 @@
-import { BackwardIcon } from "@heroicons/react/24/outline";
 export default function ChangeMonth() {
   return (
     <span className="flex flex-row gap-3">
