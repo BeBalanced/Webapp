@@ -29,7 +29,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 const addAccountSchema = z.object({
   name: z.string().min(2).max(50),
   balance: z.string().min(0),
-  countTowardAssign: z.boolean().default(false),
+  countTowardsAssign: z.boolean().default(false),
 });
 
 export default function AddAccountButton() {
@@ -62,7 +62,7 @@ export default function AddAccountButton() {
     defaultValues: {
       name: "",
       balance: "",
-      countTowardAssign: false,
+      countTowardsAssign: false,
     },
   });
 
@@ -131,7 +131,7 @@ export default function AddAccountButton() {
 
                   <FormField
                     control={form.control}
-                    name="countTowardAssign"
+                    name="countTowardsAssign"
                     render={({ field }) => (
                       <FormItem className="py-2">
                         <span className="flex gap-2 items-center">

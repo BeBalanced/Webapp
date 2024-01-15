@@ -4,7 +4,7 @@ import { toast } from "sonner";
 interface account {
   name: string;
   balance: string;
-  countTowardAssign: boolean;
+  countTowardsAssign: boolean;
 }
 
 export async function getUserId() {
@@ -21,7 +21,7 @@ export async function addAccount(params: account) {
         name: params.name,
         balance: parseInt(params.balance),
         user_id: currentUserId,
-        count_toward_assign: params.countTowardAssign,
+        count_towards_assign: params.countTowardsAssign,
       },
     ])
     .select();
@@ -31,6 +31,15 @@ export async function addAccount(params: account) {
   }
   toast.error("Sorry, something went wrong.");
   console.log(error);
+}
+
+export async function retrieveAccounts() {
+  const { data, error } = await supabase.from("accounts").select();
+  if (!error) {
+    return data;
+  }
+  console.log(error);
+  toast.error("Sorry, something went wrong.");
 }
 
 export async function joinWaitlist(userEmail: string) {
