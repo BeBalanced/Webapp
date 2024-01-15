@@ -23,7 +23,7 @@ import {
 } from "@/components/ui/form";
 import { useState, useEffect } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import LinkedModalTabContent from "./linkedModalTabContent";
+// import LinkedModalTabContent from "./linkedModalTabContent";
 
 const addAccountSchema = z.object({
   name: z.string().min(2).max(50),
@@ -138,7 +138,8 @@ export default function AddAccountButton() {
             value="linked"
             className="flex flex-col justify-between h-60"
           >
-            <LinkedModalTabContent />
+            Unfinished
+            {/* <LinkedModalTabContent /> */}
           </TabsContent>
         </Tabs>
       </DialogContent>

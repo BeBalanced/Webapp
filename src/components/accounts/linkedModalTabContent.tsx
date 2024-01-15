@@ -10,7 +10,7 @@ export default function LinkedModalTabContent() {
   useEffect(() => {
     const getLinkToken = async () => {
       const currentUserId = await getUserId();
-      const token = await generateLinkToken(currentUserId!);
+      const token = (await generateLinkToken(currentUserId!)).link_token;
       setLinkToken(token);
     };
 
@@ -33,7 +33,6 @@ export default function LinkedModalTabContent() {
       <Button
         className="w-full"
         onClick={() => {
-          console.log(linkToken);
           openLink();
         }}
         disabled={!ready}
