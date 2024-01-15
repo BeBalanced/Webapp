@@ -1,7 +1,8 @@
 import { supabase } from "./client";
 import { toast } from "sonner";
+import { Account } from "./schemas";
 
-interface account {
+interface accountToAdd {
   name: string;
   balance: string;
   countTowardsAssign: boolean;
@@ -11,7 +12,7 @@ export async function getUserId() {
   return (await supabase.auth.getUser()).data.user?.id;
 }
 
-export async function addAccount(params: account) {
+export async function addAccount(params: accountToAdd) {
   const currentUserId = await getUserId();
 
   const { data, error } = await supabase
@@ -35,8 +36,17 @@ export async function addAccount(params: account) {
 
 export async function retrieveAccounts() {
   const { data, error } = await supabase.from("accounts").select();
-  if (!error) {
-    return data;
+  console.log(data);
+  if (!error && data) {
+    return data.map((pgAccount) => {
+      let tempAccount: Account = {
+        id: pgAccount.id,
+        name: pgAccount.name,
+        balance: pgAccount.balance,
+        countTowardsAssign: pgAccount.count_towards_assign,
+      };
+      return tempAccount;
+    });
   }
   console.log(error);
   toast.error("Sorry, something went wrong.");

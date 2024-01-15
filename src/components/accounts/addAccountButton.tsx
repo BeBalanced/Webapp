@@ -24,6 +24,7 @@ import {
 import { useState } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Checkbox } from "@/components/ui/checkbox";
+import { useRouter } from "next/navigation";
 // import LinkedModalTabContent from "./linkedModalTabContent";
 
 const addAccountSchema = z.object({
@@ -35,6 +36,7 @@ const addAccountSchema = z.object({
 export default function AddAccountButton() {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const router = useRouter();
 
   // useEffect(() => {
   //   const handleOutsideClick = (event: MouseEvent) => {
