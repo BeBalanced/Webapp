@@ -1,7 +1,6 @@
 import { createServerComponentClient } from "./config";
 import { cookies } from "next/headers";
 import { Account } from "./schemas";
-import { toast } from "sonner";
 
 export const supabase = createServerComponentClient(cookies());
 

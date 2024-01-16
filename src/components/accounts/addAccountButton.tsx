@@ -73,6 +73,7 @@ export default function AddAccountButton() {
     await addAccount(values);
     setIsLoading(false);
     setIsOpen(false);
+    router.refresh();
   }
 
   return (
