@@ -1,6 +1,5 @@
 import { supabase } from "./client";
 import { toast } from "sonner";
-import { Account } from "./schemas";
 
 interface accountToAdd {
   name: string;
@@ -8,8 +7,18 @@ interface accountToAdd {
   countTowardsAssign: boolean;
 }
 
+interface transactionToAdd {
+  accountFrom: string;
+  accountTo: string;
+  amount: number;
+}
+
 export async function getUserId() {
   return (await supabase.auth.getUser()).data.user?.id;
+}
+
+export async function addTransaction(params: transactionToAdd) {
+  supabase.from("accounts").select("*").eq("external", true);
 }
 
 export async function addAccount(params: accountToAdd) {

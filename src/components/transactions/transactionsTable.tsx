@@ -2,16 +2,6 @@
 
 import { ColumnDef } from "@tanstack/react-table";
 import { DataTable } from "../shared/dataTable";
-import { EllipsisHorizontalIcon } from "@heroicons/react/24/outline";
-import { Button } from "@/components/ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 
 export const transactions: Transaction[] = [
   {
@@ -23,8 +13,6 @@ export const transactions: Transaction[] = [
   },
 ];
 
-// This type is used to define the shape of our data.
-// You can use a Zod schema here if you want.
 export type Transaction = {
   id: string;
   time: Date;
@@ -59,34 +47,6 @@ export const columns: ColumnDef<Transaction>[] = [
       return <span className="text-right font-medium">{formatted}</span>;
     },
   },
-  // {
-  //   id: "actions",
-  //   cell: ({ row }) => {
-  //     const transaction = row.original;
-
-  //     return (
-  //       <DropdownMenu>
-  //         <DropdownMenuTrigger asChild>
-  //           <Button variant="ghost" className="h-8 w-8 p-0">
-  //             <span className="sr-only">Open menu</span>
-  //             <EllipsisHorizontalIcon className="h-4 w-4" />
-  //           </Button>
-  //         </DropdownMenuTrigger>
-  //         <DropdownMenuContent align="end">
-  //           <DropdownMenuLabel>Actions</DropdownMenuLabel>
-  //           <DropdownMenuItem
-  //             onClick={() => navigator.clipboard.writeText(transaction.id)}
-  //           >
-  //             Copy payment ID
-  //           </DropdownMenuItem>
-  //           <DropdownMenuSeparator />
-  //           <DropdownMenuItem>View customer</DropdownMenuItem>
-  //           <DropdownMenuItem>View payment details</DropdownMenuItem>
-  //         </DropdownMenuContent>
-  //       </DropdownMenu>
-  //     );
-  //   },
-  // },
 ];
 
 export default async function TransactionTable() {
