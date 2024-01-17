@@ -1,5 +1,5 @@
 "use client";
-import { addAccount } from "@/lib/supabase/helpers";
+import { addAccount } from "@/lib/supabase/client";
 import {
   Dialog,
   DialogContent,

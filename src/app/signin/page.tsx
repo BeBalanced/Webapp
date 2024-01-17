@@ -1,5 +1,5 @@
-import { signIn } from "@/lib/supabase/config";
 import { Button } from "@/components/ui/button";
+import { signIn } from "@/lib/supabase/server";
 
 export default function SignIn() {
   return (
