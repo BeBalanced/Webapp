@@ -5,6 +5,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { Progress } from "@/components/ui/progress";
 
 export default function Plan() {
   return (
@@ -16,7 +17,8 @@ export default function Plan() {
         </CardHeader>
         <CardContent>
           <div className=" bg-gray-200 rounded-md h-2">
-            <div className=" bg-orange-400 w-3/6 h-2 rounded-md"></div>
+            {/* <div className=" bg-orange-400 w-3/6 h-2 rounded-md"></div> */}
+            <Progress value={50} />
           </div>
         </CardContent>
         <CardFooter>

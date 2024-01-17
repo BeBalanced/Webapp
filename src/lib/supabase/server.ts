@@ -3,10 +3,11 @@ import { createServerComponentClient } from "./config";
 import { cookies, headers } from "next/headers";
 import { Account } from "./schemas";
 import { redirect } from "next/navigation";
+import { CookieOptions } from "@supabase/ssr";
 
-export async function retrieveAccounts() {
-  "use server";
-  const cookieStore = cookies();
+export async function retrieveAccounts(
+  cookieStore: CookieOptions
+): Promise<Account[]> {
   const supabase = createServerComponentClient(cookieStore);
   const { data, error } = await supabase.from("accounts").select();
   if (!error && data) {
@@ -20,7 +21,9 @@ export async function retrieveAccounts() {
       return tempAccount;
     });
   }
+
   console.log(error);
+  return [];
 }
 
 export const signIn = async (formData: FormData) => {
