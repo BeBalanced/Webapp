@@ -3,10 +3,12 @@ import { Account } from "@/lib/supabase/schemas";
 import { AccountsList } from "@/components/accounts/accountsList";
 import { cookies } from "next/headers";
 import { retrieveAccounts } from "@/lib/supabase/server";
+import { createServerComponentClient } from "@/lib/supabase/config";
 
 export default async function Accounts() {
   const cookieStore = cookies();
-  const accounts: Account[] = await retrieveAccounts(cookieStore);
+  const supabaseServerClient = createServerComponentClient(cookieStore);
+  const accounts: Account[] = await retrieveAccounts(supabaseServerClient);
 
   return (
     <main className="space-y-4">

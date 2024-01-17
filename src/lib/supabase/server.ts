@@ -3,15 +3,13 @@ import { createServerComponentClient } from "./config";
 import { cookies, headers } from "next/headers";
 import { Account } from "./schemas";
 import { redirect } from "next/navigation";
-import { CookieOptions } from "@supabase/ssr";
 
 export async function retrieveAccounts(
-  cookieStore: CookieOptions
+  supabaseServerClient: any
 ): Promise<Account[]> {
-  const supabase = createServerComponentClient(cookieStore);
-  const { data, error } = await supabase.from("accounts").select();
+  const { data, error } = await supabaseServerClient.from("accounts").select();
   if (!error && data) {
-    return data.map((pgAccount) => {
+    return data.map((pgAccount: any) => {
       let tempAccount: Account = {
         id: pgAccount.id,
         name: pgAccount.name,
