@@ -4,9 +4,10 @@ import { cookies, headers } from "next/headers";
 import { Account } from "./schemas";
 import { redirect } from "next/navigation";
 
-export const supabase = createServerComponentClient(cookies());
-
 export async function retrieveAccounts() {
+  "use server";
+  const cookieStore = cookies();
+  const supabase = createServerComponentClient(cookieStore);
   const { data, error } = await supabase.from("accounts").select();
   if (!error && data) {
     return data.map((pgAccount) => {

@@ -1,6 +1,7 @@
-import { retrieveAccounts } from "@/lib/supabase/server";
+// import { retrieveAccounts } from "@/lib/supabase/server";
 import { Account } from "@/lib/supabase/schemas";
 import { AccountsList } from "@/components/accounts/accountsList";
+import { retrieveAccounts } from "@/lib/supabase/server";
 
 export default async function Accounts() {
   const accounts: Account[] | undefined = await retrieveAccounts();
