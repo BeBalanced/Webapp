@@ -60,7 +60,7 @@ export const signIn = async (formData: FormData) => {
     return redirect("/signin?message=Could not authenticate user");
   }
 
-  return redirect("/plan");
+  return redirect("/plans");
 };
 
 export const signUp = async (formData: FormData) => {

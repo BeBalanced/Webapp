@@ -4,7 +4,7 @@ import { AccountsList } from "@/components/accounts/accountsList";
 import { cookies } from "next/headers";
 import { retrieveAccounts } from "@/lib/supabase/server";
 import { createServerComponentClient } from "@/lib/supabase/config";
-import LeftToAssign from "@/components/plan/leftToAssign";
+import LeftToAssign from "@/components/plans/leftToAssign";
 
 export default async function Accounts() {
   const cookieStore = cookies();
