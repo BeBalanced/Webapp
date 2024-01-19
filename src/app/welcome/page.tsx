@@ -39,7 +39,7 @@ export default function Welcome() {
         <div className="mx-auto max-w-2xl py-12">
           <div className="mb-8 flex justify-center">
             <div className="relative rounded-full px-3 py-1 text-sm leading-6 text-gray-600 ring-1 ring-gray-900/10 hover:ring-gray-900/20">
-              Private beta opens on January 18th{" "}
+              Private beta opens soon!{" "}
               <Link
                 href="/welcome/join-waitlist"
                 className="font-semibold text-black"
