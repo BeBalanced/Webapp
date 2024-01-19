@@ -31,11 +31,13 @@ export default function AddPlanButton() {
             <Label htmlFor="username" className="text-right">
               Username
             </Label>
-            <Input id="username" value="@peduarte" className="col-span-3" />
+            <Input id="username" value="@peduarte" />
           </div>
         </div>
         <DialogFooter>
-          <Button type="submit">Save changes</Button>
+          <Button type="submit" className="w-full">
+            Save changes
+          </Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>

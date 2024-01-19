@@ -16,7 +16,7 @@ export default function PlanInstance() {
       </CardHeader>
       <CardContent>
         <div className=" bg-gray-200 rounded-md h-2">
-          <Progress className="" value={40} />
+          <Progress value={40} />
         </div>
       </CardContent>
       <CardFooter>
