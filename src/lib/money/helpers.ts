@@ -1,4 +1,4 @@
-export function formatCentsToDollars(cents: number) {
+export function formatCentsToDollars(cents: number): string {
   if (cents < 0) {
     return "Invalid input";
   }

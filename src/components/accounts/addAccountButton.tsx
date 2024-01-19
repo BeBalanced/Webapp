@@ -1,5 +1,5 @@
 "use client";
-import { addAccount } from "@/lib/supabase/helpers";
+import { addAccount } from "@/lib/supabase/client";
 import {
   Dialog,
   DialogContent,
@@ -24,6 +24,7 @@ import {
 import { useState } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Checkbox } from "@/components/ui/checkbox";
+import { useRouter } from "next/navigation";
 // import LinkedModalTabContent from "./linkedModalTabContent";
 
 const addAccountSchema = z.object({
@@ -35,6 +36,7 @@ const addAccountSchema = z.object({
 export default function AddAccountButton() {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const router = useRouter();
 
   // useEffect(() => {
   //   const handleOutsideClick = (event: MouseEvent) => {
@@ -71,6 +73,7 @@ export default function AddAccountButton() {
     await addAccount(values);
     setIsLoading(false);
     setIsOpen(false);
+    router.refresh();
   }
 
   return (

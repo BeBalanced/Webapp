@@ -15,11 +15,11 @@ import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import AddAccountButton from "../accounts/addAccountButton";
 import SignOutButton from "../settings/signOutButton";
-import AddPlanButton from "../plan/addPlanButton";
-import ChangeMonth from "../plan/changeMonth";
+import AddPlanButton from "../plans/addPlanButton";
+import ChangeMonth from "../plans/changeMonth";
 
 const navigationOptions = [
-  { name: "Plan", href: "/plan", icon: MapIcon },
+  { name: "Plans", href: "/plans", icon: MapIcon },
   { name: "Accounts", href: "/accounts", icon: BuildingLibraryIcon },
   {
     name: "Transactions",
@@ -221,7 +221,7 @@ export default function Sidebar({ children }: Props) {
             <div className="flex flex-row gap-6 absolute right-5">
               {isActive("/accounts") && <AddAccountButton />}
               {isActive("/settings") && <SignOutButton />}
-              {isActive("/plan") && <AddPlanButton />}
+              {isActive("/plans") && <AddPlanButton />}
             </div>
           </div>
 

@@ -4,7 +4,7 @@ import { balanceConfig } from "./lib/balance.config";
 
 export async function middleware(request: NextRequest) {
   if (request.nextUrl.pathname === "/") {
-    return NextResponse.redirect(new URL("/plan", request.url));
+    return NextResponse.redirect(new URL("/plans", request.url));
   }
   const { supabase, response } = createMiddlewareClient(request);
 
