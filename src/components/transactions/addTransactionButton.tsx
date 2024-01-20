@@ -28,15 +28,21 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import useSWR from "swr";
+import { getAccountsWithSearch } from "@/lib/supabase/client";
 
 const addTransactionSchema = z.object({
   account_from: z.string(),
 });
 
 export default function AddTransactionButton() {
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const router = useRouter();
+
+  const { data, mutate } = useSWR("", getAccountsWithSearch);
+
+  const handleSearch = () => {};
 
   const form = useForm<z.infer<typeof addTransactionSchema>>({
     resolver: zodResolver(addTransactionSchema),
@@ -46,9 +52,9 @@ export default function AddTransactionButton() {
   });
 
   async function onSubmit(values: z.infer<typeof addTransactionSchema>) {
-    setIsLoading(true);
+    setIsSubmitting(true);
     console.log(values);
-    setIsLoading(false);
+    setIsSubmitting(false);
     setIsOpen(false);
     router.refresh();
   }
@@ -103,7 +109,7 @@ export default function AddTransactionButton() {
               />
             </div>
             <DialogFooter className="pt-4">
-              <Button type="submit" disabled={isLoading} className="w-full">
+              <Button type="submit" disabled={isSubmitting} className="w-full">
                 Add Transaction
               </Button>
             </DialogFooter>

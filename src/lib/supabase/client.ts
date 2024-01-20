@@ -77,6 +77,15 @@ export async function addPlanRequest(params: planRequestToAdd) {
   console.log(error);
 }
 
+export async function getAccountsWithSearch(params: any) {
+  const { data, error } = await supabaseClientClient
+    .from("accounts")
+    .select()
+    .textSearch("name", params.searchInput);
+
+  return data;
+}
+
 export async function joinWaitlist(userEmail: string) {
   const { data, error } = await supabaseClientClient
     .from("waitlist")
