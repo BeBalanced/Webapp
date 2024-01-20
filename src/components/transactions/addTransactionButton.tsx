@@ -8,13 +8,7 @@ import {
   DialogTrigger,
   DialogFooter,
 } from "@/components/ui/dialog";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+import { Input } from "../ui/input";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import * as z from "zod";
@@ -40,9 +34,9 @@ export default function AddTransactionButton() {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const router = useRouter();
 
-  const { data, mutate } = useSWR("", getAccountsWithSearch);
+  const searchQuery = "";
 
-  const handleSearch = () => {};
+  const { data } = useSWR(searchQuery, getAccountsWithSearch);
 
   const form = useForm<z.infer<typeof addTransactionSchema>>({
     resolver: zodResolver(addTransactionSchema),
@@ -81,28 +75,10 @@ export default function AddTransactionButton() {
                 name="account_from"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Account From</FormLabel>
-                    <Select
-                      onValueChange={field.onChange}
-                      defaultValue={field.value}
-                    >
-                      <FormControl>
-                        <SelectTrigger>
-                          <SelectValue placeholder="What account are you sending from?" />
-                        </SelectTrigger>
-                      </FormControl>
-                      <SelectContent>
-                        <SelectItem value="m@example.com">
-                          m@example.com
-                        </SelectItem>
-                        <SelectItem value="m@google.com">
-                          m@google.com
-                        </SelectItem>
-                        <SelectItem value="m@support.com">
-                          m@support.com
-                        </SelectItem>
-                      </SelectContent>
-                    </Select>
+                    <FormLabel>Username</FormLabel>
+                    <FormControl>
+                      <Input {...field} />
+                    </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}
