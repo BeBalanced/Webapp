@@ -8,7 +8,13 @@ import {
   DialogTrigger,
   DialogFooter,
 } from "@/components/ui/dialog";
-import { Input } from "../ui/input";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import * as z from "zod";
@@ -23,32 +29,25 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 
-const addPlanSchema = z.object({
-  name: z
-    .string()
-    .min(2, { message: "name must be at least 2 characters" })
-    .max(50),
-  amount: z.string(),
+const addTransactionSchema = z.object({
+  account_from: z.string(),
 });
 
-export default function AddPlanButton() {
+export default function AddTransactionButton() {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const router = useRouter();
 
-  const form = useForm<z.infer<typeof addPlanSchema>>({
-    resolver: zodResolver(addPlanSchema),
+  const form = useForm<z.infer<typeof addTransactionSchema>>({
+    resolver: zodResolver(addTransactionSchema),
     defaultValues: {
-      name: "",
-      amount: "0",
+      account_from: "",
     },
   });
 
-  async function onSubmit(values: z.infer<typeof addPlanSchema>) {
+  async function onSubmit(values: z.infer<typeof addTransactionSchema>) {
     setIsLoading(true);
-    setTimeout(() => {
-      console.log("hey");
-    }, 100);
+    console.log(values);
     setIsLoading(false);
     setIsOpen(false);
     router.refresh();
@@ -61,43 +60,43 @@ export default function AddPlanButton() {
             setIsOpen(true);
           }}
         >
-          Add Plan
+          Add Transaction
         </Button>
       </DialogTrigger>
       <DialogContent className="rounded-md">
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)}>
             <DialogHeader className="py-2">
-              <DialogTitle>Add Plan</DialogTitle>
+              <DialogTitle>Add Transaction</DialogTitle>
             </DialogHeader>
             <div className="space-y-4">
               <FormField
                 control={form.control}
-                name="name"
+                name="account_from"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Name</FormLabel>
-                    <FormControl>
-                      <Input
-                        placeholder="plan name"
-                        {...field}
-                        className="focus:ring-black"
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-
-              <FormField
-                control={form.control}
-                name="amount"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Amount</FormLabel>
-                    <FormControl>
-                      <Input {...field} />
-                    </FormControl>
+                    <FormLabel>Account From</FormLabel>
+                    <Select
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                    >
+                      <FormControl>
+                        <SelectTrigger>
+                          <SelectValue placeholder="What account are you sending from?" />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        <SelectItem value="m@example.com">
+                          m@example.com
+                        </SelectItem>
+                        <SelectItem value="m@google.com">
+                          m@google.com
+                        </SelectItem>
+                        <SelectItem value="m@support.com">
+                          m@support.com
+                        </SelectItem>
+                      </SelectContent>
+                    </Select>
                     <FormMessage />
                   </FormItem>
                 )}
@@ -105,7 +104,7 @@ export default function AddPlanButton() {
             </div>
             <DialogFooter className="pt-4">
               <Button type="submit" disabled={isLoading} className="w-full">
-                Add Plan
+                Add Transaction
               </Button>
             </DialogFooter>
           </form>

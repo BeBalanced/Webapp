@@ -16,6 +16,7 @@ import { cn } from "@/lib/utils";
 import AddAccountButton from "../accounts/addAccountButton";
 import SignOutButton from "../settings/signOutButton";
 import AddPlanButton from "../plans/addPlanButton";
+import AddTransactionButton from "../transactions/addTransactionButton";
 import ChangeMonth from "../plans/changeMonth";
 
 const navigationOptions = [
@@ -222,6 +223,7 @@ export default function Sidebar({ children }: Props) {
               {isActive("/accounts") && <AddAccountButton />}
               {isActive("/settings") && <SignOutButton />}
               {isActive("/plans") && <AddPlanButton />}
+              {isActive("/transactions") && <AddTransactionButton />}
             </div>
           </div>
 

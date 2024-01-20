@@ -4,24 +4,24 @@ import { cookies, headers } from "next/headers";
 import { Account } from "./schemas";
 import { redirect } from "next/navigation";
 
-export async function getAccountSums(
-  supabaseServerClient: any
-): Promise<number> {
-  let { data: balances, error } = await supabaseServerClient
-    .from("accounts")
-    .select("balance")
-    .eq("count_towards_assign", true);
+// export async function getAccountSums(
+//   supabaseServerClient: any
+// ): Promise<number> {
+//   let { data: balances, error } = await supabaseServerClient
+//     .from("accounts")
+//     .select("balance")
+//     .eq("count_towards_assign", true);
 
-  if (!error) {
-    return balances.reduce(
-      (accumulator: number, currentValue: any) =>
-        accumulator + currentValue.balance,
-      0
-    );
-  }
+//   if (!error) {
+//     return balances.reduce(
+//       (accumulator: number, currentValue: any) =>
+//         accumulator + currentValue.balance,
+//       0
+//     );
+//   }
 
-  return -1;
-}
+//   return -1;
+// }
 
 export async function retrieveAccounts(
   supabaseServerClient: any
