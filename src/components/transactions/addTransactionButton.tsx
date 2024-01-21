@@ -22,35 +22,37 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { getAccountNamesWithSearch } from "@/lib/supabase/client";
+import { insertTransaction } from "@/lib/supabase/client";
 
 const addTransactionSchema = z.object({
   account_from: z.string(),
+  account_to: z.string(),
+  amount: z.string(),
 });
 
 export default function AddTransactionButton() {
-  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  const [accounts, setAccounts] = useState<any>([]);
   const router = useRouter();
-
-  useEffect(() => {
-    getAccountNamesWithSearch("").then((incomingAccounts) => {
-      setAccounts(incomingAccounts);
-    });
-  }, []);
 
   const form = useForm<z.infer<typeof addTransactionSchema>>({
     resolver: zodResolver(addTransactionSchema),
     defaultValues: {
       account_from: "",
+      account_to: "",
+      amount: "",
     },
   });
 
   async function onSubmit(values: z.infer<typeof addTransactionSchema>) {
-    setIsSubmitting(true);
+    setIsLoading(true);
     console.log(values);
-    setIsSubmitting(false);
+    await insertTransaction(
+      parseInt(values.amount),
+      values.account_from,
+      values.account_to
+    );
+    setIsLoading(false);
     setIsOpen(false);
     router.refresh();
   }
@@ -77,9 +79,37 @@ export default function AddTransactionButton() {
                 name="account_from"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Username</FormLabel>
+                    <FormLabel>Account From</FormLabel>
                     <FormControl>
-                      <Input {...field} list="accounts" name="accounts" />
+                      <Input {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name="account_to"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Account To</FormLabel>
+                    <FormControl>
+                      <Input {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name="amount"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Amount</FormLabel>
+                    <FormControl>
+                      <Input {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -87,7 +117,7 @@ export default function AddTransactionButton() {
               />
             </div>
             <DialogFooter className="pt-4">
-              <Button type="submit" disabled={isSubmitting} className="w-full">
+              <Button type="submit" disabled={isLoading} className="w-full">
                 Add Transaction
               </Button>
             </DialogFooter>

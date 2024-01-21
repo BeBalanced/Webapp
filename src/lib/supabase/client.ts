@@ -77,13 +77,13 @@ export async function addPlanRequest(params: planRequestToAdd) {
   console.log(error);
 }
 
-export async function getAccountNamesWithSearch(params: any) {
-  const { data, error } = await supabaseClientClient
-    .from("accounts")
-    .select("name");
-  // .textSearch("name", params.searchInput);
-  return data;
-}
+// export async function getAccountNamesWithSearch(params: any) {
+//   const { data, error } = await supabaseClientClient
+//     .from("accounts")
+//     .select("name");
+//   // .textSearch("name", params.searchInput);
+//   return data;
+// }
 
 export async function joinWaitlist(userEmail: string) {
   const { data, error } = await supabaseClientClient
@@ -96,4 +96,50 @@ export async function joinWaitlist(userEmail: string) {
     return data;
   }
   toast.error("Sorry, something went wrong.");
+}
+
+export async function insertTransaction(
+  amount: number,
+  accountFromName: string,
+  accountToName: string
+) {
+  // Get account_from_id
+  const { data: accountFromData, error: accountFromError } =
+    await supabaseClientClient
+      .from("accounts")
+      .select("id")
+      .eq("name", accountFromName);
+
+  if (accountFromError) {
+    console.error("Error fetching account_from_id:", accountFromError.message);
+    return;
+  }
+
+  // Get account_to_id
+  const { data: accountToData, error: accountToError } =
+    await supabaseClientClient
+      .from("accounts")
+      .select("id")
+      .eq("name", accountToName);
+
+  if (accountToError) {
+    console.error("Error fetching account_to_id:", accountToError.message);
+    return;
+  }
+
+  // Insert transaction
+  const { data: transactionData, error: transactionError } =
+    await supabaseClientClient.from("transactions").insert({
+      amount,
+      account_from_id: accountFromData[0].id,
+      account_to_id: accountToData[0].id,
+    });
+
+  if (transactionError) {
+    console.error("Error inserting transaction:", transactionError.message);
+    toast.error(transactionError.message);
+    return;
+  }
+
+  toast.success("Transaction inserted successfully");
 }
