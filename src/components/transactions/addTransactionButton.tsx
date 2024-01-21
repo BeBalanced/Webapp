@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "../ui/input";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -22,8 +22,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import useSWR from "swr";
-import { getAccountsWithSearch } from "@/lib/supabase/client";
+import { getAccountNamesWithSearch } from "@/lib/supabase/client";
 
 const addTransactionSchema = z.object({
   account_from: z.string(),
@@ -32,11 +31,14 @@ const addTransactionSchema = z.object({
 export default function AddTransactionButton() {
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [accounts, setAccounts] = useState<any>([]);
   const router = useRouter();
 
-  const searchQuery = "";
-
-  const { data } = useSWR(searchQuery, getAccountsWithSearch);
+  useEffect(() => {
+    getAccountNamesWithSearch("").then((incomingAccounts) => {
+      setAccounts(incomingAccounts);
+    });
+  }, []);
 
   const form = useForm<z.infer<typeof addTransactionSchema>>({
     resolver: zodResolver(addTransactionSchema),
@@ -77,7 +79,7 @@ export default function AddTransactionButton() {
                   <FormItem>
                     <FormLabel>Username</FormLabel>
                     <FormControl>
-                      <Input {...field} />
+                      <Input {...field} list="accounts" name="accounts" />
                     </FormControl>
                     <FormMessage />
                   </FormItem>

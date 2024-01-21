@@ -77,12 +77,11 @@ export async function addPlanRequest(params: planRequestToAdd) {
   console.log(error);
 }
 
-export async function getAccountsWithSearch(params: any) {
+export async function getAccountNamesWithSearch(params: any) {
   const { data, error } = await supabaseClientClient
     .from("accounts")
-    .select()
-    .textSearch("name", params.searchInput);
-
+    .select("name");
+  // .textSearch("name", params.searchInput);
   return data;
 }
 
