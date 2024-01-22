@@ -8,15 +8,9 @@ import {
   DialogTrigger,
   DialogFooter,
 } from "@/components/ui/dialog";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+import { Input } from "../ui/input";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -28,33 +22,37 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import useSWR from "swr";
-import { getAccountsWithSearch } from "@/lib/supabase/client";
+import { insertTransaction } from "@/lib/supabase/client";
 
 const addTransactionSchema = z.object({
   account_from: z.string(),
+  account_to: z.string(),
+  amount: z.string(),
 });
 
 export default function AddTransactionButton() {
-  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const router = useRouter();
-
-  const { data, mutate } = useSWR("", getAccountsWithSearch);
-
-  const handleSearch = () => {};
 
   const form = useForm<z.infer<typeof addTransactionSchema>>({
     resolver: zodResolver(addTransactionSchema),
     defaultValues: {
       account_from: "",
+      account_to: "",
+      amount: "",
     },
   });
 
   async function onSubmit(values: z.infer<typeof addTransactionSchema>) {
-    setIsSubmitting(true);
+    setIsLoading(true);
     console.log(values);
-    setIsSubmitting(false);
+    await insertTransaction(
+      parseInt(values.amount),
+      values.account_from,
+      values.account_to
+    );
+    setIsLoading(false);
     setIsOpen(false);
     router.refresh();
   }
@@ -82,34 +80,44 @@ export default function AddTransactionButton() {
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Account From</FormLabel>
-                    <Select
-                      onValueChange={field.onChange}
-                      defaultValue={field.value}
-                    >
-                      <FormControl>
-                        <SelectTrigger>
-                          <SelectValue placeholder="What account are you sending from?" />
-                        </SelectTrigger>
-                      </FormControl>
-                      <SelectContent>
-                        <SelectItem value="m@example.com">
-                          m@example.com
-                        </SelectItem>
-                        <SelectItem value="m@google.com">
-                          m@google.com
-                        </SelectItem>
-                        <SelectItem value="m@support.com">
-                          m@support.com
-                        </SelectItem>
-                      </SelectContent>
-                    </Select>
+                    <FormControl>
+                      <Input {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name="account_to"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Account To</FormLabel>
+                    <FormControl>
+                      <Input {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name="amount"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Amount</FormLabel>
+                    <FormControl>
+                      <Input {...field} />
+                    </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}
               />
             </div>
             <DialogFooter className="pt-4">
-              <Button type="submit" disabled={isSubmitting} className="w-full">
+              <Button type="submit" disabled={isLoading} className="w-full">
                 Add Transaction
               </Button>
             </DialogFooter>
