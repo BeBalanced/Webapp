@@ -45,8 +45,9 @@ export async function retrieveAccounts(
 
 export async function getTransactions(supabaseServerClient: any) {
   const { data, error } = await supabaseServerClient
-    .from("transactions")
+    .from("standard_transaction_view")
     .select();
+
   return data;
 }
 

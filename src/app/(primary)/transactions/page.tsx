@@ -4,23 +4,21 @@ import { getTransactions } from "@/lib/supabase/server";
 import { cookies } from "next/headers";
 import { createServerComponentClient } from "@/lib/supabase/config";
 
-// This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
-export type Payment = {
-  id: string;
+export type Transaction = {
+  account_from_name: string;
+  account_to_name: string;
   amount: number;
-  status: "pending" | "processing" | "success" | "failed";
-  email: string;
 };
 
-const columns: ColumnDef<Payment>[] = [
+const columns: ColumnDef<Transaction>[] = [
   {
-    accessorKey: "status",
-    header: "Status",
+    accessorKey: "account_from_name",
+    header: "Account From",
   },
   {
-    accessorKey: "email",
-    header: "Email",
+    accessorKey: "account_to_name",
+    header: "Account To",
   },
   {
     accessorKey: "amount",
@@ -28,24 +26,9 @@ const columns: ColumnDef<Payment>[] = [
   },
 ];
 
-async function getData(): Promise<Payment[]> {
-  // Fetch data from your API here.
-  return [
-    {
-      id: "728ed52f",
-      amount: 100,
-      status: "pending",
-      email: "m@example.com",
-    },
-    // ...
-  ];
-}
-
 export default async function TransactionTable() {
   const cookieStore = cookies();
   const supabaseClient = createServerComponentClient(cookieStore);
   const transactions = await getTransactions(supabaseClient);
-  console.log(transactions);
-  const data = await getData();
-  return <DataTable columns={columns} data={data} />;
+  return <DataTable columns={columns} data={transactions} />;
 }
