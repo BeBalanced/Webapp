@@ -8,12 +8,6 @@ interface accountToAdd {
   countTowardsAssign: boolean;
 }
 
-interface transactionToAdd {
-  accountFrom: string;
-  accountTo: string;
-  amount: number;
-}
-
 interface planRequestToAdd {
   name: string;
   amount: string;

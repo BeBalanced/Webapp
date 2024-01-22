@@ -18,6 +18,7 @@ import SignOutButton from "../settings/signOutButton";
 import AddPlanButton from "../plans/addPlanButton";
 import AddTransactionButton from "../transactions/addTransactionButton";
 import ChangeMonth from "../plans/changeMonth";
+import ThemeToggle from "../shared/themeToggle";
 
 const navigationOptions = [
   { name: "Plans", href: "/plans", icon: MapIcon },
@@ -221,6 +222,7 @@ export default function Sidebar({ children }: Props) {
 
             <div className="flex flex-row gap-6 absolute right-5">
               {isActive("/accounts") && <AddAccountButton />}
+              {isActive("/settings") && <ThemeToggle />}
               {isActive("/settings") && <SignOutButton />}
               {isActive("/plans") && <AddPlanButton />}
               {isActive("/transactions") && <AddTransactionButton />}
