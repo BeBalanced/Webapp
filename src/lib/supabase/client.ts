@@ -37,10 +37,6 @@ export async function getUserId() {
   return (await supabaseClientClient.auth.getUser()).data.user?.id;
 }
 
-export async function addTransaction(params: transactionToAdd) {
-  supabaseClientClient.from("accounts").select("*").eq("external", true);
-}
-
 export async function addAccount(params: accountToAdd) {
   const currentUserId = await getUserId();
 
@@ -127,12 +123,15 @@ export async function insertTransaction(
     return;
   }
 
+  const user_id = await getUserId();
+
   // Insert transaction
   const { data: transactionData, error: transactionError } =
     await supabaseClientClient.from("transactions").insert({
       amount,
       account_from_id: accountFromData[0].id,
       account_to_id: accountToData[0].id,
+      user_id,
     });
 
   if (transactionError) {

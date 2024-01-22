@@ -44,12 +44,9 @@ export async function retrieveAccounts(
 }
 
 export async function getTransactions(supabaseServerClient: any) {
-  const { data, error } = await supabaseServerClient.from("accounts").select(
-    `
-    id,
-    transactions ( id )
-    `
-  );
+  const { data, error } = await supabaseServerClient
+    .from("transactions")
+    .select();
   return data;
 }
 
