@@ -1,7 +1,6 @@
 import "client-only";
 import { createBrowserClient } from "@supabase/ssr";
 import { toast } from "sonner";
-import { sendWaitlistConfirmationEmail } from "../resend/helpers";
 
 interface accountToAdd {
   name: string;
@@ -84,7 +83,6 @@ export async function joinWaitlist(userEmail: string) {
     toast.success(
       "Congrats, you're all signed up. You will get an email when a spot opens up."
     );
-    sendWaitlistConfirmationEmail();
     return data;
   }
   toast.error("Sorry, something went wrong.");
