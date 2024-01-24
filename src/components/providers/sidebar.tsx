@@ -14,6 +14,7 @@ import {
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import AddAccountButton from "../accounts/addAccountButton";
+import AddLinkedAccountButton from "../accounts/addLinkedAccountButton";
 import SignOutButton from "../settings/signOutButton";
 import AddPlanButton from "../plans/addPlanButton";
 import AddTransactionButton from "../transactions/addTransactionButton";
@@ -221,6 +222,7 @@ export default function Sidebar({ children }: Props) {
             </div>
 
             <div className="flex flex-row gap-6 absolute right-5">
+              {isActive("/accounts") && <AddLinkedAccountButton />}
               {isActive("/accounts") && <AddAccountButton />}
               {isActive("/settings") && <ThemeToggle />}
               {isActive("/settings") && <SignOutButton />}
