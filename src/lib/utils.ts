@@ -10,12 +10,20 @@ export async function HttpRequest(
   method: string,
   data: Object | null = null
 ) {
-  const res = await fetch(url, {
+  const requestOptions: RequestInit = {
     method,
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(data),
-  });
+  };
+
+  if (method !== "GET" && data !== null) {
+    requestOptions.body = JSON.stringify(data);
+  }
+
+  const res = await fetch(url, requestOptions);
+  if (!res.ok) {
+    throw new Error(`HTTP request failed with status ${res.status}`);
+  }
   return res.json();
 }
