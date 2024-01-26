@@ -1,5 +1,5 @@
 "use client";
-import { Button } from "../ui/button";
+
 import { getUserId } from "@/lib/supabase/client";
 import { usePlaidLink } from "react-plaid-link";
 import {
@@ -7,11 +7,8 @@ import {
   exchangeTempTokenForPermanentToken,
 } from "@/lib/plaid/client-helpers";
 import { useState, useEffect } from "react";
-
-interface Props {
-  closeModal: () => void;
-}
-export default function LinkedModalTabContent({ closeModal }: Props) {
+import { Button } from "../ui/button";
+export default function AddLinkedAccountButton() {
   const [linkToken, setLinkToken] = useState<string | null>(null);
 
   useEffect(() => {
@@ -39,14 +36,10 @@ export default function LinkedModalTabContent({ closeModal }: Props) {
   return (
     <>
       <Button
-        className="w-full"
+        disabled={!ready}
         onClick={() => {
-          console.log("Closing Modal");
-          closeModal();
-          console.log("Opening Link");
           openLink();
         }}
-        disabled={!ready}
       >
         Add Linked Account
       </Button>

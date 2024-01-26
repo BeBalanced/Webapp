@@ -1,17 +1,12 @@
 import "client-only";
 import { createBrowserClient } from "@supabase/ssr";
 import { toast } from "sonner";
+import { HttpRequest } from "../utils";
 
 interface accountToAdd {
   name: string;
   balance: string;
   countTowardsAssign: boolean;
-}
-
-interface transactionToAdd {
-  accountFrom: string;
-  accountTo: string;
-  amount: number;
 }
 
 interface planRequestToAdd {
@@ -85,6 +80,12 @@ export async function joinWaitlist(userEmail: string) {
   const { data, error } = await supabaseClientClient
     .from("waitlist")
     .insert({ email: userEmail });
+  HttpRequest("/api/email/waitlist", "POST", {
+    userEmail,
+  }).catch(() => {
+    toast.error("Sorry, something went wrong.");
+    return;
+  });
   if (!error) {
     toast.success(
       "Congrats, you're all signed up. You will get an email when a spot opens up."

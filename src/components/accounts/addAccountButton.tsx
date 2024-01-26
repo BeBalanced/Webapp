@@ -38,27 +38,6 @@ export default function AddAccountButton() {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const router = useRouter();
 
-  // useEffect(() => {
-  //   const handleOutsideClick = (event: MouseEvent) => {
-  // Check if the click is outside the dialog content
-  // if (
-  //   isOpen &&
-  //   event.target instanceof Element &&
-  //   !event.target.closest(".tabs-class")
-  // ) {
-  //   setIsOpen(false);
-  // }
-  //   };
-
-  //   // Add event listener to handle outside click
-  //   document.addEventListener("click", handleOutsideClick);
-
-  //   // Clean up the event listener on component unmount
-  //   return () => {
-  //     document.removeEventListener("click", handleOutsideClick);
-  //   };
-  // }, [isOpen]);
-
   const form = useForm<z.infer<typeof addAccountSchema>>({
     resolver: zodResolver(addAccountSchema),
     defaultValues: {
@@ -160,8 +139,11 @@ export default function AddAccountButton() {
             </Form>
           </TabsContent>
           <TabsContent value="linked" className="flex flex-col justify-between">
-            Unfinished
-            {/* <LinkedModalTabContent /> */}
+            {/* <LinkedModalTabContent
+              closeModal={() => {
+                setIsOpen(false);
+              }}
+            /> */}
           </TabsContent>
         </Tabs>
       </DialogContent>
