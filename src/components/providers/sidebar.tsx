@@ -218,7 +218,7 @@ export default function Sidebar({ children }: Props) {
             </button>
 
             <div className="flex flex-row gap-6 absolute left-16">
-              {isActive("/plan") && <ChangeMonth />}
+              {isActive("/plans") && <ChangeMonth />}
             </div>
 
             <div className="flex flex-row gap-6 absolute right-5">
