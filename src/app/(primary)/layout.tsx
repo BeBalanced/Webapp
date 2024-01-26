@@ -1,3 +1,4 @@
+"use client";
 import Sidebar from "@/components/providers/sidebar";
 export default function PrimaryLayout({
   children,
