@@ -23,7 +23,7 @@ import { redirect } from "next/navigation";
 //   return -1;
 // }
 
-export async function retrieveAccounts(
+export async function getAccounts(
   supabaseServerClient: any
 ): Promise<Account[]> {
   const { data, error } = await supabaseServerClient.from("accounts").select();
