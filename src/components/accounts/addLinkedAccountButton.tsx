@@ -8,6 +8,7 @@ import {
 } from "@/lib/plaid/client-helpers";
 import { useState, useEffect } from "react";
 import { Button } from "../ui/button";
+import { HttpRequest } from "@/lib/utils";
 export default function AddLinkedAccountButton() {
   const [linkToken, setLinkToken] = useState<string | null>(null);
 
@@ -30,7 +31,13 @@ export default function AddLinkedAccountButton() {
       const permanentAccessToken = await exchangeTempTokenForPermanentToken(
         public_token
       );
+
       console.log(permanentAccessToken);
+      const res = await HttpRequest(
+        `/api/plaid/accounts?access_token=${permanentAccessToken}`,
+        "GET"
+      );
+      console.log(res);
     },
   });
   return (

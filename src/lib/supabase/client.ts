@@ -94,7 +94,7 @@ export async function joinWaitlist(userEmail: string) {
   toast.error("Sorry, something went wrong.");
 }
 
-export async function insertTransaction(
+export async function addTransaction(
   amount: number,
   accountFromName: string,
   accountToName: string

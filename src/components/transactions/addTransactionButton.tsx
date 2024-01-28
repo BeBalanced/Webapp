@@ -22,7 +22,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { insertTransaction } from "@/lib/supabase/client";
+import { addTransaction } from "@/lib/supabase/client";
 
 const addTransactionSchema = z.object({
   account_from: z.string(),
@@ -47,7 +47,7 @@ export default function AddTransactionButton() {
   async function onSubmit(values: z.infer<typeof addTransactionSchema>) {
     setIsLoading(true);
     console.log(values);
-    await insertTransaction(
+    await addTransaction(
       parseInt(values.amount),
       values.account_from,
       values.account_to
