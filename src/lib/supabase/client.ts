@@ -8,7 +8,6 @@ interface accountToAdd {
   balance: string;
   countTowardsAssign: boolean;
 }
-
 interface planRequestToAdd {
   name: string;
   amount: string;
