@@ -25,14 +25,13 @@ export default function AddLinkedAccountButton() {
   const { open: openLink, ready } = usePlaidLink({
     token: linkToken!,
     onSuccess: async (public_token, metadata) => {
-      console.log(public_token);
-      console.log(metadata);
+      console.log("public_token: ", public_token);
 
-      const permanentAccessToken = await exchangeTempTokenForPermanentToken(
-        public_token
-      );
+      const permanentAccessToken = (
+        await exchangeTempTokenForPermanentToken(public_token)
+      ).permanent_token;
 
-      console.log(permanentAccessToken);
+      console.log("permanent_token: ", permanentAccessToken);
       const res = await HttpRequest(
         `/api/plaid/accounts?access_token=${permanentAccessToken}`,
         "GET"
