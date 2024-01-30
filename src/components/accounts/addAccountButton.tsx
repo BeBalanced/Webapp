@@ -1,5 +1,5 @@
 "use client";
-import { addAccount } from "@/lib/supabase/helpers";
+import { createAccount } from "@/lib/supabase/helpers";
 import {
   Dialog,
   DialogContent,
@@ -49,7 +49,7 @@ export default function AddAccountButton() {
 
   async function onSubmit(values: z.infer<typeof addAccountSchema>) {
     setIsLoading(true);
-    await addAccount(values);
+    await createAccount(values);
     setIsLoading(false);
     setIsOpen(false);
     router.refresh();

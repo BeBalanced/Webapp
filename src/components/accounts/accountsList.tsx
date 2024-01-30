@@ -1,4 +1,3 @@
-"use client";
 import { Account } from "@/lib/supabase/schemas";
 
 import { formatCentsToDollars } from "@/lib/money/helpers";

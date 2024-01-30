@@ -8,10 +8,6 @@ interface accountToAdd {
   balance: string;
   countTowardsAssign: boolean;
 }
-interface planRequestToAdd {
-  name: string;
-  amount: string;
-}
 
 const supabaseClientClient = createBrowserClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -31,7 +27,7 @@ export async function getUserId() {
   return (await supabaseClientClient.auth.getUser()).data.user?.id;
 }
 
-export async function addAccount(params: accountToAdd) {
+export async function createAccount(params: accountToAdd) {
   const currentUserId = await getUserId();
 
   const { data, error } = await supabaseClientClient.from("accounts").insert({
@@ -48,34 +44,7 @@ export async function addAccount(params: accountToAdd) {
   console.log(error);
 }
 
-export async function addPlanRequest(params: planRequestToAdd) {
-  const currentUserId = await getUserId();
-
-  const { data, error } = await supabaseClientClient
-    .from("plan_requests")
-    .insert({
-      name: params.name,
-      user_id: currentUserId,
-      amount: params.amount,
-    });
-
-  if (!error) {
-    toast.success("Plan added successfully.");
-    return data;
-  }
-  toast.error("Sorry, something went wrong.");
-  console.log(error);
-}
-
-// export async function getAccountNamesWithSearch(params: any) {
-//   const { data, error } = await supabaseClientClient
-//     .from("accounts")
-//     .select("name");
-//   // .textSearch("name", params.searchInput);
-//   return data;
-// }
-
-export async function joinWaitlist(userEmail: string) {
+export async function joinWaitlistAndSendEmail(userEmail: string) {
   const { data, error } = await supabaseClientClient
     .from("waitlist")
     .insert({ email: userEmail });
@@ -94,7 +63,7 @@ export async function joinWaitlist(userEmail: string) {
   toast.error("Sorry, something went wrong.");
 }
 
-export async function addTransaction(
+export async function createTransaction(
   amount: number,
   accountFromName: string,
   accountToName: string
