@@ -16,7 +16,6 @@ export async function POST(request: NextRequest) {
       item_id: itemID,
     });
   } catch (error) {
-    // handle error
-    return NextResponse.error();
+    return NextResponse.json(error, { status: 400 });
   }
 }

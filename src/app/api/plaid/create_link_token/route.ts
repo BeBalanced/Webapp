@@ -31,8 +31,7 @@ export async function POST(request: NextRequest) {
     const createTokenResponse = await plaid_client.linkTokenCreate(configs);
 
     return NextResponse.json(createTokenResponse.data);
-  } catch (e) {
-    console.log(e);
+  } catch (error) {
+    return NextResponse.json(error, { status: 400 });
   }
-  return NextResponse.json("Something went wrong");
 }

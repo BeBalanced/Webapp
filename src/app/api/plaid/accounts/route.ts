@@ -10,6 +10,6 @@ export async function GET(request: NextRequest) {
     });
     return NextResponse.json(accountsResponse.data);
   } catch (error) {
-    return NextResponse.error();
+    return NextResponse.json(error, { status: 400 });
   }
 }

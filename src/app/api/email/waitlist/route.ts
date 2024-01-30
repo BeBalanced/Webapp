@@ -11,7 +11,7 @@ export async function POST(request: NextRequest) {
     html: "<h1>Thanks for signing up for the waitlist!</h1>",
   });
   if (error) {
-    return NextResponse.error();
+    return NextResponse.json(error, { status: 400 });
   }
   return NextResponse.json("Email sent successfully");
 }
