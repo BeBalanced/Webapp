@@ -1,9 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
 import { plaid_client } from "@/lib/plaid/config";
 export async function POST(request: NextRequest) {
-  const requestBody = await request.json();
-  const publicToken = requestBody;
   try {
+    const requestBody = await request.json();
+    const publicToken = requestBody;
     const response = await plaid_client.itemPublicTokenExchange({
       public_token: publicToken,
     });
@@ -15,7 +15,10 @@ export async function POST(request: NextRequest) {
       permanent_token: accessToken,
       item_id: itemID,
     });
-  } catch (error) {
-    return NextResponse.json(error, { status: 400 });
+  } catch (error: any) {
+    // console.log(error);
+    return NextResponse.json(error?.message, {
+      status: error.response?.status,
+    });
   }
 }
