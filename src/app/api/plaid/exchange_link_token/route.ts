@@ -16,9 +16,9 @@ export async function POST(request: NextRequest) {
       item_id: itemID,
     });
   } catch (error: any) {
-    // console.log(error);
-    return NextResponse.json(error?.message, {
-      status: error.response?.status,
-    });
+    // typeof error?
+    const message = error?.message ? error.message : "Something went wrong.";
+    const status = error?.response?.status ? error.response.status : 400;
+    return NextResponse.json(message, { status });
   }
 }
