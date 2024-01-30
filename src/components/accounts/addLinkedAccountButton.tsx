@@ -1,6 +1,6 @@
 "use client";
 
-import { getUserId } from "@/lib/supabase/client";
+import { getUserId } from "@/lib/supabase/helpers";
 import { usePlaidLink } from "react-plaid-link";
 import {
   generateLinkToken,

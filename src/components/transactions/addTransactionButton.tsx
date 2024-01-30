@@ -22,7 +22,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { addTransaction } from "@/lib/supabase/client";
+import { addTransaction } from "@/lib/supabase/helpers";
 
 const addTransactionSchema = z.object({
   account_from: z.string(),
