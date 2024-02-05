@@ -8,7 +8,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { joinWaitlistAndSendEmail } from "@/lib/supabase/helpers";
+import { joinWaitlistAndSendEmail } from "@/lib/supabase/client";
 import { useRouter } from "next/navigation";
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
